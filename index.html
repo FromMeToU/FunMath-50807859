@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เกมคณิตคิดเร็ว & สุ่มชื่อ MKMCLASS</title>
+  
+  <!-- Google Fonts: Kanit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    body { font-family: 'Kanit', sans-serif; }
+    /* แอนิเมชันสำหรับหน้าต่างต่างๆ */
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    .zoom-in { animation: zoomIn 0.3s ease-out; }
+    .slide-up { animation: slideUp 0.4s ease-out forwards; }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shimmer { 100% { transform: translateX(150%) skewX(-20deg); } }
+    
+    .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 flex items-center justify-center p-4 text-slate-800 selection:bg-indigo-200">
+  
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed top-4 right-4 z-[80] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Modal Container -->
+  <div id="modal-root"></div>
+
+  <div class="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 relative">
+    
+    <!-- ส่วนหัวของแอป -->
+    <div id="header-bg" class="bg-indigo-600 p-6 text-white text-center transition-colors duration-300 relative">
+      <h1 id="header-title" class="text-2xl font-bold">สมการท้าทายสมอง</h1>
+      <p id="header-subtitle" class="text-indigo-200 mt-1 text-sm">เลขโดด 4 ตัว ผลลัพธ์ไม่เกิน 100</p>
+      
+      <!-- สถานะการดึงข้อมูลจาก Firebase -->
+      <div id="db-status" class="absolute top-4 right-4 flex items-center gap-1.5 text-[10px] bg-black/20 px-2 py-1 rounded-lg backdrop-blur-sm">
+        <i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> โหลดข้อมูลรายชื่อ...
+      </div>
+      
+      <!-- แสดงคะแนนรวมเซสชัน -->
+      <div id="score-container" class="hidden mt-4 inline-flex items-center bg-black/20 px-4 py-1.5 rounded-full text-sm font-semibold shadow-inner backdrop-blur-sm border border-white/10">
+        ผ่านไปแล้ว: <span id="score-display" class="mx-1.5 text-yellow-300 text-lg">0</span> ข้อ
+      </div>
+    </div>
+
+    <!-- พื้นที่เล่นเกม -->
+    <div class="p-6 relative overflow-hidden">
+
+      <!-- ================= หน้าเริ่มเกม ================= -->
+      <div id="start-screen" class="text-center py-2 fade-in zoom-in">
+        
+        <!-- ตัวเลือกโหมดเกม -->
+        <div class="flex p-1 space-x-1 bg-slate-100 rounded-xl mb-4 border border-slate-200">
+          <button id="tab-math" class="w-1/2 py-2.5 text-sm font-bold rounded-lg bg-white shadow-sm text-indigo-600 border border-slate-200 transition-all">โหมดสมการ</button>
+          <button id="tab-roman" class="w-1/2 py-2.5 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">โหมดเลขโรมัน</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย โหมดเลขโรมัน -->
+        <div id="roman-submodes" class="hidden flex p-1 space-x-1 bg-slate-100 rounded-xl mb-4 border border-slate-200">
+          <button data-mode="toRoman" class="roman-sub-btn w-1/3 py-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">อารบิค➔โรมัน</button>
+          <button data-mode="toArabic" class="roman-sub-btn w-1/3 py-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">โรมัน➔อารบิค</button>
+          <button data-mode="mixed" class="roman-sub-btn w-1/3 py-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-purple-600 border border-slate-200 transition-all">สุ่มผสม</button>
+        </div>
+        
+        <!-- ตั้งค่าระบบเวลา -->
+        <div class="mb-6 flex flex-col gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left">
+          <div class="mb-1">
+            <label class="block text-sm font-bold text-slate-700 mb-2">ตั้งค่าเวลาตอบคำถาม</label>
+            <div class="w-full flex flex-col gap-2 mt-2">
+              <div class="flex items-center justify-between px-4 py-2 bg-white rounded-xl shadow-sm border border-slate-100">
+                <span id="timer-text-off" class="text-sm font-medium text-slate-400">คิดเรื่อยๆ</span>
+                <button id="btn-toggle-timer" class="relative w-14 h-8 flex items-center rounded-full p-1 transition-colors duration-300 bg-indigo-500">
+                  <div id="timer-toggle-knob" class="bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 translate-x-6"></div>
+                </button>
+                <span id="timer-text-on" class="text-sm font-medium text-indigo-600">จับเวลา</span>
+              </div>
+              
+              <div id="timer-input-container" class="flex items-center justify-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 transition-all duration-300">
+                <span class="text-sm text-slate-600">เวลาต่อข้อ:</span>
+                <input type="number" id="input-custom-time" value="15" min="1" max="60" class="w-16 text-center border-b-2 border-indigo-200 focus:border-indigo-500 outline-none text-indigo-600 font-bold bg-transparent">
+                <span class="text-sm text-slate-600">วิ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-2 mt-4">
+          <button id="btn-start-normal" class="w-1/2 bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-2xl transition-transform active:scale-95 shadow-lg flex flex-col items-center justify-center gap-1">
+            <i data-lucide="play-circle" class="w-6 h-6 mb-1"></i>
+            เล่นโหมดปกติ
+          </button>
+          
+          <button id="btn-start-random" disabled class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl transition-transform active:scale-95 shadow-lg shadow-indigo-200 flex flex-col items-center justify-center gap-1 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed">
+            <i data-lucide="users" class="w-6 h-6 mb-1"></i>
+            สุ่มชื่อแล้วเล่น
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= หน้าจอเล่นเกม ================= -->
+      <div id="playing-screen" class="hidden py-0 fade-in">
+        
+        <!-- แถบแสดงชื่อนักเรียน (จะโชว์เฉพาะโหมดสุ่มชื่อ) -->
+        <div id="student-banner" class="hidden bg-indigo-100 text-indigo-800 border-2 border-indigo-200 px-4 py-3 rounded-xl mb-4 text-center shadow-sm relative overflow-hidden">
+          <div class="font-bold text-lg relative z-10" id="student-banner-name">ชื่อนักเรียน</div>
+          <div class="absolute inset-0 bg-white/40 skew-x-[-20deg] translate-x-[-150%] animate-[shimmer_3s_infinite]"></div>
+        </div>
+
+        <!-- เวลา -->
+        <div class="text-5xl flex justify-center items-center h-12 font-black mb-4 transition-colors duration-300 text-slate-800">
+          <span id="time-display">5</span>
+          <span id="time-infinity" class="hidden text-indigo-300"><i data-lucide="infinity" class="w-10 h-10"></i></span>
+        </div>
+        
+        <!-- โจทย์ -->
+        <div id="question-display" class="bg-slate-100 rounded-2xl py-4 px-2 mb-4 border-2 border-slate-200 shadow-inner text-3xl tracking-wide font-bold text-slate-700 text-center whitespace-nowrap overflow-hidden">
+          1 + 2 * 3 - 4
+        </div>
+
+        <!-- ช่องแสดงคำตอบ -->
+        <div id="answer-box" class="bg-white border-indigo-200 text-indigo-600 shadow-sm text-center py-4 px-6 rounded-2xl border-2 mb-4 min-h-[4rem] flex items-center justify-center text-3xl font-bold transition-all duration-200">
+          <span id="user-answer-display" class="hidden"></span>
+          <span id="answer-placeholder" class="text-slate-300 font-normal text-2xl">พิมพ์คำตอบ...</span>
+        </div>
+
+        <!-- ================= แป้นพิมพ์ ================= -->
+        <div id="keyboards-container">
+          <!-- แป้นพิมพ์ตัวเลข (Numpad) -->
+          <div id="numpad" class="grid grid-cols-3 gap-2">
+            <button data-val="1" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">1</button>
+            <button data-val="2" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">2</button>
+            <button data-val="3" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">3</button>
+            <button data-val="4" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">4</button>
+            <button data-val="5" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">5</button>
+            <button data-val="6" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">6</button>
+            <button data-val="7" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">7</button>
+            <button data-val="8" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">8</button>
+            <button data-val="9" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">9</button>
+            <button id="btn-minus" data-val="-" class="numpad-btn bg-slate-100 border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-200 active:scale-95 transition-all">+/-</button>
+            <button data-val="0" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:bg-slate-50 hover:border-indigo-300 active:scale-95 transition-all">0</button>
+            <button data-val="del" class="numpad-btn bg-rose-50 border-2 border-rose-200 text-slate-600 py-3 rounded-xl shadow-sm hover:bg-rose-100 hover:text-rose-600 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center">
+              <i data-lucide="delete" class="w-6 h-6"></i>
+            </button>
+          </div>
+
+          <!-- แป้นพิมพ์เลขโรมัน (Roman Keypad) -->
+          <div id="roman-pad" class="hidden grid grid-cols-4 gap-2">
+            <button data-val="I" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-purple-300 active:scale-95 transition-all">I</button>
+            <button data-val="V" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-purple-300 active:scale-95 transition-all">V</button>
+            <button data-val="X" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-purple-300 active:scale-95 transition-all">X</button>
+            <button data-val="L" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-purple-300 active:scale-95 transition-all">L</button>
+            <button data-val="C" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-purple-300 active:scale-95 transition-all">C</button>
+            <button data-val="D" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-purple-300 active:scale-95 transition-all">D</button>
+            <button data-val="M" class="numpad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-purple-300 active:scale-95 transition-all">M</button>
+            <button data-val="del" class="numpad-btn bg-rose-50 border-2 border-rose-200 text-slate-600 py-3.5 rounded-xl shadow-sm hover:bg-rose-100 hover:text-rose-600 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center">
+              <i data-lucide="delete" class="w-6 h-6"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ปุ่มกลับหน้าหลักระหว่างเล่น -->
+        <div class="mt-4 flex justify-center gap-2">
+          <button id="btn-back-home-playing" class="flex items-center gap-2 text-slate-400 hover:text-slate-600 font-medium transition-colors bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm active:scale-95">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> กลับหน้าหลัก / ตั้งค่า
+          </button>
+          <!-- ปุ่มล้างประวัติ จะโผล่มาเฉพาะในโหมดสุ่ม -->
+          <button id="btn-reset-drawn-playing" onclick="app.resetRandomizerDrawn()" class="hidden items-center gap-1.5 px-4 py-2 rounded-full border border-red-200 bg-red-50 text-red-500 hover:bg-red-100 transition-colors text-sm font-bold shadow-sm active:scale-95">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> ล้างประวัติสุ่ม
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= หน้าจอเฉลย (หมดเวลา) ================= -->
+      <div id="revealed-screen" class="hidden text-center py-4 fade-in zoom-in">
+        <div class="mb-6 flex justify-center">
+          <div class="flex flex-col items-center text-amber-500">
+            <i data-lucide="alert-circle" class="w-16 h-16 mb-2"></i>
+            <span class="text-xl font-bold">หมดเวลา!</span>
+          </div>
+        </div>
+
+        <!-- เฉลย -->
+        <div class="bg-slate-100 rounded-2xl p-6 mb-8 border-2 border-slate-200 text-center shadow-inner">
+          <p class="text-slate-500 text-sm mb-2 font-semibold uppercase tracking-wider">เฉลยคือ</p>
+          <div class="text-2xl font-bold text-slate-800 flex justify-center items-center flex-wrap gap-2">
+            <span id="revealed-question"></span>
+            <span class="text-indigo-600 mx-2">➔</span>
+            <span id="revealed-answer" class="text-indigo-600 text-3xl"></span>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button id="btn-home" class="w-1/3 bg-white border-2 border-slate-200 text-slate-600 hover:bg-slate-50 font-bold py-4 rounded-2xl transition-transform active:scale-95">
+            หน้าแรก
+          </button>
+          <button id="btn-next" class="w-2/3 bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg">
+            <span id="text-btn-next">ข้อต่อไป</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= โค้ดเชื่อมโยง Firebase & Game Logic ================= -->
+  
+
+    <script type="module" src="script.min.js"></script>
+</body>
+</html>
