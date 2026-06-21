@@ -91,48 +91,61 @@
               
               <div id="timer-input-container" class="flex items-center justify-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 transition-all duration-300">
                 <span class="text-sm text-slate-600">เวลาต่อข้อ:</span>
-                <input type="number" id="input-custom-time" value="15" min="1" max="60" class="w-16 text-center border-b-2 border-indigo-200 focus:border-indigo-500 outline-none text-indigo-600 font-bold bg-transparent">
+                <input type="number" id="input-custom-time" value="10" min="1" max="60" class="w-16 text-center border-b-2 border-indigo-200 focus:border-indigo-500 outline-none text-indigo-600 font-bold bg-transparent">
                 <span class="text-sm text-slate-600">วิ</span>
               </div>
+              
+              <p class="text-[10px] text-slate-400 text-center mt-1">* เวลาจะเปลี่ยนตามโหมดที่เลือกโดยอัตโนมัติ</p>
             </div>
           </div>
         </div>
 
-        <div class="flex gap-2 mt-4">
-          <button id="btn-start-normal" class="w-1/2 bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-2xl transition-transform active:scale-95 shadow-lg flex flex-col items-center justify-center gap-1">
-            <i data-lucide="play-circle" class="w-6 h-6 mb-1"></i>
-            เล่นโหมดปกติ
+        <div class="flex flex-col gap-2 mt-4">
+          <button id="btn-start-normal" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-2xl transition-transform active:scale-95 shadow-lg flex items-center justify-center gap-2">
+            <i data-lucide="play-circle" class="w-5 h-5"></i>
+            เล่นโหมดปกติ (ไม่สุ่มชื่อ)
           </button>
           
-          <button id="btn-start-random" disabled class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl transition-transform active:scale-95 shadow-lg shadow-indigo-200 flex flex-col items-center justify-center gap-1 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed">
-            <i data-lucide="users" class="w-6 h-6 mb-1"></i>
-            สุ่มชื่อแล้วเล่น
-          </button>
+          <div class="flex gap-2">
+            <button id="btn-start-random" disabled class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 sm:py-4 rounded-2xl transition-transform active:scale-95 shadow-lg shadow-indigo-200 flex flex-col items-center justify-center gap-1 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed">
+              <i data-lucide="keyboard" class="w-5 h-5 mb-0.5"></i>
+              <span class="text-xs sm:text-sm">สุ่มชื่อ + พิมพ์ตอบ</span>
+            </button>
+
+            <button id="btn-start-random-no-input" disabled class="w-1/2 bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 sm:py-4 rounded-2xl transition-transform active:scale-95 shadow-lg shadow-sky-200 flex flex-col items-center justify-center gap-1 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed">
+              <i data-lucide="eye" class="w-5 h-5 mb-0.5"></i>
+              <span class="text-xs sm:text-sm">สุ่มชื่อ + โชว์โจทย์</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- ================= หน้าจอเล่นเกม ================= -->
+      <!-- ================= หน้าจอเล่นเกม (เฉพาะพิมพ์ตอบ และ ปกติ) ================= -->
       <div id="playing-screen" class="hidden py-0 fade-in">
         
-        <!-- แถบแสดงชื่อนักเรียน (จะโชว์เฉพาะโหมดสุ่มชื่อ) -->
+        <!-- แถบแสดงชื่อนักเรียน (จะโชว์เฉพาะโหมดสุ่มชื่อ+พิมพ์ตอบ) -->
         <div id="student-banner" class="hidden bg-indigo-100 text-indigo-800 border-2 border-indigo-200 px-4 py-3 rounded-xl mb-4 text-center shadow-sm relative overflow-hidden">
           <div class="font-bold text-lg relative z-10" id="student-banner-name">ชื่อนักเรียน</div>
           <div class="absolute inset-0 bg-white/40 skew-x-[-20deg] translate-x-[-150%] animate-[shimmer_3s_infinite]"></div>
         </div>
 
-        <!-- เวลา -->
-        <div class="text-5xl flex justify-center items-center h-12 font-black mb-4 transition-colors duration-300 text-slate-800">
-          <span id="time-display">5</span>
-          <span id="time-infinity" class="hidden text-indigo-300"><i data-lucide="infinity" class="w-10 h-10"></i></span>
-        </div>
-        
-        <!-- โจทย์ -->
-        <div id="question-display" class="bg-slate-100 rounded-2xl py-4 px-2 mb-4 border-2 border-slate-200 shadow-inner text-3xl tracking-wide font-bold text-slate-700 text-center whitespace-nowrap overflow-hidden">
-          1 + 2 * 3 - 4
+        <!-- กล่องโจทย์ + เวลา -->
+        <div class="relative bg-slate-100 rounded-3xl py-8 px-4 mb-4 border-2 border-slate-200 shadow-inner flex flex-col items-center justify-center min-h-[140px]">
+           <!-- Badge เวลา ลอยมุมขวาบน -->
+           <div id="timer-badge" class="absolute top-3 right-4 flex items-center gap-1.5 bg-white px-3 py-1 rounded-full shadow-sm border border-slate-200 text-slate-500 font-bold text-sm transition-colors duration-300">
+              <i data-lucide="timer" class="w-4 h-4"></i>
+              <span id="time-display" class="tabular-nums">15 วิ</span>
+              <span id="time-infinity" class="hidden"><i data-lucide="infinity" class="w-4 h-4"></i></span>
+           </div>
+           
+           <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">โจทย์</div>
+           <div id="question-display" class="text-5xl tracking-wider font-black text-slate-800 text-center whitespace-nowrap overflow-hidden w-full px-2 drop-shadow-sm">
+             1 + 2 * 3 - 4
+           </div>
         </div>
 
         <!-- ช่องแสดงคำตอบ -->
-        <div id="answer-box" class="bg-white border-indigo-200 text-indigo-600 shadow-sm text-center py-4 px-6 rounded-2xl border-2 mb-4 min-h-[4rem] flex items-center justify-center text-3xl font-bold transition-all duration-200">
+        <div id="answer-box" class="bg-white border-indigo-200 text-indigo-600 shadow-sm text-center py-4 px-6 rounded-2xl border-2 mb-4 min-h-[4rem] flex items-center justify-center text-4xl font-bold transition-all duration-200">
           <span id="user-answer-display" class="hidden"></span>
           <span id="answer-placeholder" class="text-slate-300 font-normal text-2xl">พิมพ์คำตอบ...</span>
         </div>
@@ -184,7 +197,7 @@
         </div>
       </div>
 
-      <!-- ================= หน้าจอเฉลย (หมดเวลา) ================= -->
+      <!-- ================= หน้าจอเฉลย (โหมดปกติ/พิมพ์ตอบ หมดเวลา) ================= -->
       <div id="revealed-screen" class="hidden text-center py-4 fade-in zoom-in">
         <div class="mb-6 flex justify-center">
           <div class="flex flex-col items-center text-amber-500">
@@ -196,10 +209,10 @@
         <!-- เฉลย -->
         <div class="bg-slate-100 rounded-2xl p-6 mb-8 border-2 border-slate-200 text-center shadow-inner">
           <p class="text-slate-500 text-sm mb-2 font-semibold uppercase tracking-wider">เฉลยคือ</p>
-          <div class="text-2xl font-bold text-slate-800 flex justify-center items-center flex-wrap gap-2">
+          <div class="text-3xl font-black text-slate-800 flex justify-center items-center flex-wrap gap-2">
             <span id="revealed-question"></span>
             <span class="text-indigo-600 mx-2">➔</span>
-            <span id="revealed-answer" class="text-indigo-600 text-3xl"></span>
+            <span id="revealed-answer" class="text-indigo-600 text-4xl"></span>
           </div>
         </div>
 
