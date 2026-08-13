@@ -29,6 +29,610 @@
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* ====================================================
+       Responsive Auto Layout
+       - รักษาหน้าเริ่มต้น/หน้าตั้งค่าให้มีสัดส่วนเดิม
+       - เมื่อเริ่มเล่น จอแท็บเล็ต/โน้ตบุ๊ก/คอมจะขยายพื้นที่เกมอัตโนมัติ
+       - มือถือยังคง UI แบบเดิมและย่อให้พอดีจอ
+       ==================================================== */
+    #app-shell { transition: width .25s ease, max-width .25s ease, height .25s ease, border-radius .25s ease; }
+
+    /* ขยายเฉพาะหน้าที่กำลังเล่น/เฉลย ไม่ทำให้หน้าเมนูเดิมเสียสัดส่วน */
+    @media (min-width: 700px) {
+      body.game-active-layout:not(.presentation-mode) {
+        padding: clamp(1rem, 2vw, 2rem);
+        align-items: flex-start;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #app-shell {
+        width: min(96vw, 1180px);
+        max-width: min(96vw, 1180px) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #app-content {
+        padding: clamp(1.25rem, 2.4vw, 2.4rem);
+      }
+
+      body.game-active-layout:not(.presentation-mode) #playing-screen,
+      body.game-active-layout:not(.presentation-mode) #revealed-screen {
+        width: min(100%, 1080px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #playing-screen > .relative.bg-slate-100 {
+        min-height: clamp(220px, 30vh, 360px);
+        padding-top: clamp(2.5rem, 5vh, 4.5rem);
+        padding-bottom: clamp(2.5rem, 5vh, 4.5rem);
+      }
+
+      body.game-active-layout:not(.presentation-mode) #header-title {
+        font-size: clamp(1.7rem, 2.5vw, 2.35rem);
+        line-height: 1.1;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #header-subtitle {
+        font-size: clamp(.82rem, 1.25vw, 1rem);
+      }
+
+      body.game-active-layout:not(.presentation-mode) #student-banner-name {
+        font-size: clamp(1.15rem, 2vw, 1.8rem);
+      }
+
+      body.game-active-layout:not(.presentation-mode) #answer-box {
+        font-size: clamp(2.25rem, 4vw, 3.5rem);
+        min-height: clamp(4.5rem, 9vh, 6.5rem);
+      }
+    }
+
+    /* จอใหญ่มาก: ใช้พื้นที่เพิ่ม แต่ไม่ยืดจน UI ดูโล่งเกินไป */
+    @media (min-width: 1280px) {
+      body.game-active-layout:not(.presentation-mode) #app-shell {
+        width: min(92vw, 1280px);
+        max-width: min(92vw, 1280px) !important;
+      }
+    }
+
+    /* หน้าสุ่มชื่อยังคงขนาดมาตรฐานตอนเลือกห้อง/รายชื่อ
+       และจะขยายเองเฉพาะตอนมีโจทย์บนจอ */
+    @media (min-width: 700px) {
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-modal-frame {
+        padding: clamp(.75rem, 2vw, 2rem);
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-inner-root {
+        width: min(96vw, 1080px);
+        max-width: min(96vw, 1080px) !important;
+        max-height: 95dvh;
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-content-body {
+        padding: clamp(1rem, 2.3vw, 2rem);
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-main-panel {
+        min-height: clamp(520px, 72dvh, 760px);
+        padding: clamp(1.25rem, 2.6vw, 2.75rem);
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-game-card {
+        width: min(100%, 940px);
+        margin-left: auto;
+        margin-right: auto;
+        padding: clamp(1rem, 2vw, 2rem);
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-result-name {
+        font-size: clamp(2rem, 4vw, 3.5rem) !important;
+        line-height: 1.1;
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #rand-question-card {
+        padding: clamp(1.25rem, 2.5vw, 2.5rem);
+        min-height: clamp(250px, 35vh, 390px);
+        justify-content: center;
+      }
+    }
+
+    /* มือถือจอแคบ: เว้นขอบให้พอดีและไม่บังคับความสูง */
+    @media (max-width: 699px) {
+      body { padding: .75rem; }
+      #app-shell { max-width: 28rem; }
+      #question-display, #rand-question-display { line-height: 1.12; }
+    }
+
+    /* ====================================================
+       โหมดเต็มจอ / Presentation Mode
+       - โหมดปกติคง UI เดิมทุกอย่าง
+       - เมื่อเปิดเต็มจอจึงขยายพื้นที่สำหรับ iPad / จอคอม
+       ==================================================== */
+    #app-shell, #randomizer-inner-root { transition: width .25s ease, max-width .25s ease, height .25s ease, border-radius .25s ease; }
+
+    body.presentation-mode {
+      padding: 0 !important;
+      align-items: stretch !important;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    body.presentation-mode #app-shell {
+      width: 100vw;
+      max-width: none !important;
+      min-height: 100vh;
+      height: 100dvh;
+      border-radius: 0 !important;
+      border: 0 !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.presentation-mode #header-bg {
+      padding: clamp(1.1rem, 2.2vw, 2rem) clamp(1rem, 3vw, 2.5rem);
+      flex: 0 0 auto;
+    }
+
+    body.presentation-mode #header-title {
+      font-size: clamp(1.5rem, 2.8vw, 2.35rem);
+    }
+
+    body.presentation-mode #header-subtitle {
+      font-size: clamp(.78rem, 1.4vw, 1rem);
+    }
+
+    body.presentation-mode #app-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      padding: clamp(1rem, 2.5vw, 2.5rem);
+    }
+
+    body.presentation-mode #start-screen,
+    body.presentation-mode #revealed-screen {
+      width: min(100%, 880px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    body.presentation-mode #playing-screen {
+      width: min(100%, 1080px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    body.presentation-mode #playing-screen > .relative.bg-slate-100 {
+      min-height: clamp(190px, 30vh, 330px);
+    }
+
+    /* หน้าสุ่มชื่อ: โหมดปกติยังคง max-w-md เหมือนเดิม */
+    body.presentation-mode #randomizer-modal-frame {
+      padding: clamp(.75rem, 2vw, 2rem);
+    }
+
+    body.presentation-mode #randomizer-inner-root {
+      max-width: min(1120px, 97vw) !important;
+      width: min(1120px, 97vw);
+      height: min(900px, 95dvh);
+      max-height: 95dvh;
+    }
+
+    body.presentation-mode #randomizer-content-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      padding: clamp(1rem, 2.2vw, 2rem);
+    }
+
+    body.presentation-mode #randomizer-main-panel {
+      min-height: 100%;
+      padding: clamp(1rem, 2.4vw, 2.5rem);
+    }
+
+    body.presentation-mode #randomizer-game-card {
+      width: min(100%, 940px);
+      margin-left: auto;
+      margin-right: auto;
+      padding: clamp(1rem, 2.2vw, 2rem);
+    }
+
+    body.presentation-mode #randomizer-result-name {
+      font-size: clamp(1.8rem, 4vw, 3.7rem) !important;
+      line-height: 1.15;
+    }
+
+    body.presentation-mode #rand-question-card {
+      padding: clamp(1rem, 2.5vw, 2.25rem);
+    }
+
+    body.presentation-mode #rand-question-display {
+      line-height: 1.18;
+      letter-spacing: .01em;
+    }
+
+    body.presentation-mode #randomizer-settings-scroll {
+      height: min(62dvh, 620px) !important;
+    }
+
+    @media (min-width: 768px) {
+      body.presentation-mode #math-submodes,
+      body.presentation-mode #number-equation-submodes,
+      body.presentation-mode #emoji-equation-submodes,
+      body.presentation-mode #fast-submodes,
+      body.presentation-mode #base-submodes,
+      body.presentation-mode #roman-submodes {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-height: 650px) {
+      body.presentation-mode #randomizer-inner-root { height: 98dvh; max-height: 98dvh; }
+      body.presentation-mode #randomizer-main-panel { padding-top: .75rem; padding-bottom: .75rem; }
+    }
+
+
+    /* ====================================================
+       Responsive Gameplay v2
+       ขยาย "เนื้อหาที่ใช้เล่นจริง" ตาม viewport อัตโนมัติ
+       โดยไม่ต้องกดปุ่มเต็มจอ และยังรักษารูปแบบ UI เดิม
+       ==================================================== */
+    @media (min-width: 700px) {
+      body.game-active-layout:not(.presentation-mode) {
+        padding: clamp(.75rem, 1.5vw, 1.5rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #app-shell {
+        width: calc(100vw - clamp(1.5rem, 3vw, 3rem));
+        max-width: none !important;
+        min-height: calc(100dvh - clamp(1.5rem, 3vw, 3rem));
+      }
+
+      body.game-active-layout:not(.presentation-mode) #playing-screen,
+      body.game-active-layout:not(.presentation-mode) #revealed-screen {
+        width: min(100%, 1480px);
+      }
+
+      body.game-active-layout:not(.presentation-mode) #playing-screen > .relative.bg-slate-100 {
+        min-height: clamp(260px, 38dvh, 440px);
+        padding-top: clamp(3rem, 6dvh, 5.5rem);
+        padding-bottom: clamp(3rem, 6dvh, 5.5rem);
+      }
+
+      body.game-active-layout:not(.presentation-mode) #question-display {
+        line-height: 1.05;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #question-hint {
+        font-size: clamp(.9rem, 1.2vw, 1.25rem) !important;
+        margin-bottom: clamp(.55rem, 1vh, 1rem);
+      }
+
+      body.game-active-layout:not(.presentation-mode) #timer-badge {
+        font-size: clamp(1rem, 1.35vw, 1.35rem) !important;
+        padding: .55rem 1rem !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #timer-badge svg {
+        width: clamp(1.15rem, 1.5vw, 1.5rem) !important;
+        height: clamp(1.15rem, 1.5vw, 1.5rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #answer-box {
+        font-size: clamp(3rem, 4.8vw, 5rem) !important;
+        min-height: clamp(5.5rem, 11dvh, 8rem) !important;
+        padding-top: clamp(1rem, 2vh, 1.6rem) !important;
+        padding-bottom: clamp(1rem, 2vh, 1.6rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #answer-placeholder {
+        font-size: clamp(1.5rem, 2.4vw, 2.35rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #numpad,
+      body.game-active-layout:not(.presentation-mode) #roman-pad,
+      body.game-active-layout:not(.presentation-mode) #base-pad > .grid {
+        gap: clamp(.6rem, 1vw, 1rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #numpad .numpad-btn,
+      body.game-active-layout:not(.presentation-mode) #roman-pad .numpad-btn,
+      body.game-active-layout:not(.presentation-mode) #base-pad .basepad-btn {
+        font-size: clamp(2rem, 2.65vw, 3.15rem) !important;
+        padding-top: clamp(.8rem, 1.5dvh, 1.35rem) !important;
+        padding-bottom: clamp(.8rem, 1.5dvh, 1.35rem) !important;
+        border-radius: clamp(.8rem, 1.2vw, 1.15rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #fast-pad .fastpad-btn {
+        font-size: clamp(1.35rem, 1.9vw, 2.2rem) !important;
+        padding-top: clamp(.65rem, 1.2dvh, 1rem) !important;
+        padding-bottom: clamp(.65rem, 1.2dvh, 1rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #btn-clear-fast,
+      body.game-active-layout:not(.presentation-mode) #btn-check-fast,
+      body.game-active-layout:not(.presentation-mode) #btn-home,
+      body.game-active-layout:not(.presentation-mode) #btn-next {
+        font-size: clamp(1rem, 1.35vw, 1.35rem) !important;
+        padding-top: clamp(.9rem, 1.6dvh, 1.35rem) !important;
+        padding-bottom: clamp(.9rem, 1.6dvh, 1.35rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #revealed-screen > .mb-6 span {
+        font-size: clamp(1.5rem, 2vw, 2rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #revealed-screen .bg-slate-100 {
+        padding: clamp(2rem, 4vw, 4rem) !important;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #revealed-question {
+        font-size: clamp(2.6rem, 4.6vw, 5.2rem) !important;
+        line-height: 1.08;
+      }
+
+      body.game-active-layout:not(.presentation-mode) #revealed-answer {
+        font-size: clamp(3.2rem, 5.5vw, 6rem) !important;
+        line-height: 1.05;
+      }
+
+      /* สุ่มชื่อ + โชว์โจทย์: ขยาย modal และโจทย์โดยอัตโนมัติ */
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-inner-root {
+        width: calc(100vw - clamp(2rem, 4vw, 5rem));
+        max-width: 1480px !important;
+        max-height: 96dvh;
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-main-panel {
+        min-height: clamp(560px, 78dvh, 860px);
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-game-card {
+        width: min(100%, 1260px);
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #randomizer-result-name {
+        font-size: clamp(2.8rem, 5vw, 5.2rem) !important;
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #rand-question-card {
+        min-height: clamp(300px, 42dvh, 500px);
+        padding: clamp(1.5rem, 3vw, 3rem) !important;
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #rand-question-display {
+        line-height: 1.04;
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #rand-time-display {
+        font-size: clamp(1.2rem, 1.8vw, 1.8rem) !important;
+      }
+
+      body.randomizer-question-active:not(.presentation-mode) #rand-question-card > button {
+        font-size: clamp(1.15rem, 1.7vw, 1.7rem) !important;
+        padding-top: clamp(1rem, 1.8dvh, 1.45rem) !important;
+        padding-bottom: clamp(1rem, 1.8dvh, 1.45rem) !important;
+      }
+    }
+
+    /* จอคอมกว้าง: ให้โจทย์/ปุ่มใช้พื้นที่มากขึ้นจริง */
+    @media (min-width: 1400px) {
+      body.game-active-layout:not(.presentation-mode) #app-content {
+        padding-left: clamp(2rem, 4vw, 4.5rem) !important;
+        padding-right: clamp(2rem, 4vw, 4.5rem) !important;
+      }
+    }
+
+    /* มือถือ: ขยายเท่าที่จอรับได้ ไม่บังคับขนาด desktop */
+    @media (max-width: 699px) {
+      body.game-active-layout #question-display,
+      body.randomizer-question-active #rand-question-display {
+        line-height: 1.08;
+      }
+      body.game-active-layout #numpad .numpad-btn,
+      body.game-active-layout #roman-pad .numpad-btn,
+      body.game-active-layout #base-pad .basepad-btn {
+        font-size: clamp(1.35rem, 7vw, 2rem) !important;
+      }
+    }
+
+    /* ====================================================
+       LARGE QUESTION OVERRIDE v4
+       แก้การวัดความกว้างข้อความ: ตอนเล่นใช้ขนาดเดียวกับหน้าเฉลยจริง
+       ==================================================== */
+    /* ====================================================
+       LARGE QUESTION OVERRIDE v3
+       ขนาดโจทย์ขณะเล่น = ระดับเดียวกับหน้า "หมดเวลา/เฉลย"
+       ทุกโหมด: สมการตัวเลข / สมการอิโมจิ / เกม 24 / เลข 4 หลัก / ระบบเลขฐาน / เลขโรมัน
+       ==================================================== */
+    @media (min-width: 700px) {
+      body.game-active-layout:not(.presentation-mode) #question-display,
+      body.randomizer-question-active:not(.presentation-mode) #rand-question-display {
+        font-size: clamp(2.6rem, 4.6vw, 5.2rem) !important;
+        line-height: 1.05 !important;
+      }
+
+      /* หน้าเฉลยให้คงสเกลเดียวกันกับโจทย์ที่เห็นก่อนหมดเวลา */
+      body.game-active-layout:not(.presentation-mode) #revealed-question {
+        font-size: clamp(2.6rem, 4.6vw, 5.2rem) !important;
+      }
+
+      /* เมื่อกดเต็มจอ ขยายทั้งตอนเล่นและตอนเฉลยขึ้นอีกระดับ */
+      body.presentation-mode #question-display,
+      body.presentation-mode #rand-question-display,
+      body.presentation-mode #revealed-question {
+        font-size: clamp(3.2rem, 5.8vw, 7rem) !important;
+        line-height: 1.04 !important;
+      }
+      body.presentation-mode #revealed-answer {
+        font-size: clamp(3.8rem, 6.8vw, 8rem) !important;
+      }
+    }
+
+    @media (max-width: 699px) {
+      body.game-active-layout #question-display,
+      body.randomizer-question-active #rand-question-display,
+      body.game-active-layout #revealed-question {
+        font-size: clamp(2.6rem, 11.5vw, 4rem) !important;
+        line-height: 1.06 !important;
+      }
+    }
+
+
+    /* ====================================================
+       FULLSCREEN REVEAL WIDE v5
+       หน้าเฉลยในโหมดเต็มจอ: ใช้ความกว้าง viewport มากขึ้น
+       และบังคับ สมการ → ผลลัพธ์ ให้อยู่บรรทัดเดียว
+       ==================================================== */
+    @media (min-width: 700px) {
+      body.presentation-mode #revealed-screen {
+        width: min(96vw, 1680px) !important;
+        max-width: none !important;
+      }
+
+      body.presentation-mode #revealed-screen > .bg-slate-100 {
+        width: 100% !important;
+        max-width: none !important;
+        padding-left: clamp(2rem, 4vw, 5rem) !important;
+        padding-right: clamp(2rem, 4vw, 5rem) !important;
+      }
+
+      body.presentation-mode #revealed-screen > .bg-slate-100 > div {
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+        width: 100%;
+        gap: clamp(.5rem, 1.2vw, 1.5rem) !important;
+      }
+
+      body.presentation-mode #revealed-question {
+        white-space: nowrap !important;
+        flex: 0 1 auto;
+        min-width: 0;
+      }
+
+      body.presentation-mode #revealed-answer,
+      body.presentation-mode #revealed-screen > .bg-slate-100 > div > span:nth-child(2) {
+        flex: 0 0 auto;
+        white-space: nowrap !important;
+      }
+    }
+
+
+    /* ====================================================
+       FULLSCREEN EMOJI KEY v6
+       ขยายกุญแจ 🐘=5 🦊=4 🐼=3 🐰=2 🐣=1 ในทุกจุดที่ใช้เล่น
+       เฉพาะ Presentation Mode โดยไม่รบกวน UI ปกติ
+       ==================================================== */
+    @media (min-width: 700px) {
+      body.presentation-mode #question-hint,
+      body.presentation-mode #rand-question-hint {
+        font-size: clamp(1.45rem, 2.25vw, 2.35rem) !important;
+        line-height: 1.25 !important;
+        font-weight: 800 !important;
+        letter-spacing: .015em;
+        margin-bottom: clamp(.9rem, 1.5vh, 1.35rem) !important;
+        white-space: nowrap !important;
+      }
+
+      /* กุญแจที่หน้าเลือกโหมดก็ขยายให้สัมพันธ์กันเมื่อเปิดเต็มจอ */
+      body.presentation-mode #emoji-key > div:first-child {
+        font-size: clamp(1rem, 1.45vw, 1.35rem) !important;
+      }
+      body.presentation-mode #emoji-key > div:last-child {
+        font-size: clamp(1.3rem, 1.9vw, 1.8rem) !important;
+        line-height: 1.35 !important;
+        white-space: nowrap !important;
+      }
+    }
+
+    /* iPad/มือถือแนวนอนหรือจอที่กว้างไม่มาก: ให้ใหญ่แต่ไม่ล้น */
+    @media (min-width: 700px) and (max-width: 1024px) {
+      body.presentation-mode #question-hint,
+      body.presentation-mode #rand-question-hint {
+        font-size: clamp(1.2rem, 2.8vw, 1.8rem) !important;
+      }
+      body.presentation-mode #emoji-key > div:last-child {
+        font-size: clamp(1.1rem, 2.3vw, 1.5rem) !important;
+      }
+    }
+
+
+    /* ====================================================
+       BASE NUMBER SYSTEM v7
+       ขยายโจทย์/แป้นและข้อมูลฐานให้สอดคล้องกับ Responsive/Presentation เดิม
+       ==================================================== */
+    @media (min-width: 700px) {
+      body.presentation-mode #base-key > div:first-child {
+        font-size: clamp(1rem, 1.45vw, 1.35rem) !important;
+      }
+      body.presentation-mode #base-key > div:nth-child(2) {
+        font-size: clamp(1.2rem, 1.8vw, 1.75rem) !important;
+        line-height: 1.35 !important;
+      }
+      body.presentation-mode #base-pad .basepad-btn {
+        font-size: clamp(2rem, 2.8vw, 3.2rem) !important;
+        padding-top: clamp(.8rem, 1.5dvh, 1.3rem) !important;
+        padding-bottom: clamp(.8rem, 1.5dvh, 1.3rem) !important;
+      }
+    }
+
+
+    /* ====================================================
+       EQUATION VARIANTS v8
+       รองรับ 3 แบบสมการตัวเลข + 4 แบบสมการอิโมจิ
+       √ และ ²/³ แสดงเป็นสัญลักษณ์คณิตศาสตร์จริง
+       ==================================================== */
+    @media (min-width: 700px) {
+      body.presentation-mode #number-equation-submodes,
+      body.presentation-mode #emoji-equation-submodes {
+        max-width: 900px;
+      }
+      body.presentation-mode #number-equation-submodes button,
+      body.presentation-mode #emoji-equation-submodes button {
+        font-size: clamp(.95rem, 1.25vw, 1.2rem) !important;
+        min-height: 3.25rem;
+      }
+    }
+
+
+    /* v11: แสดงอิโมจิเลขชี้กำลังให้ครบทั้งตัว ไม่ตัดส่วนบน */
+    .emoji-exponent {
+      display: inline-block;
+      font-size: 0.52em;
+      line-height: 1;
+      vertical-align: super;
+      margin-left: 0.03em;
+      transform: none;
+    }
+
+    body.presentation-mode .emoji-exponent,
+    body.game-active-layout .emoji-exponent,
+    body.randomizer-question-active .emoji-exponent {
+      font-size: 0.50em;
+    }
+
+    /* question-display เดิมใช้ overflow-hidden + line-height ต่ำเพื่อกันสมการล้นแนวนอน
+       ซึ่งทำให้ส่วนบนของอิโมจิที่เป็น superscript ถูกตัดออก
+       ให้เปิด overflow เฉพาะเมื่อมีเลขชี้กำลังอิโมจิ และเผื่อพื้นที่แนวตั้งเพิ่ม */
+    #question-display:has(.emoji-exponent),
+    #rand-question-display:has(.emoji-exponent),
+    #revealed-question:has(.emoji-exponent) {
+      overflow: visible !important;
+      line-height: 1.28 !important;
+      padding-top: 0.30em !important;
+      padding-bottom: 0.10em !important;
+    }
+
+    /* เผื่อพื้นที่ด้านบนในกล่องโจทย์/กล่องสุ่มอีกเล็กน้อย โดยไม่เปลี่ยนขนาดตัวโจทย์ */
+    body.presentation-mode #question-display:has(.emoji-exponent),
+    body.presentation-mode #rand-question-display:has(.emoji-exponent),
+    body.game-active-layout #question-display:has(.emoji-exponent),
+    body.randomizer-question-active #rand-question-display:has(.emoji-exponent) {
+      line-height: 1.30 !important;
+      padding-top: 0.34em !important;
+    }
+
   </style>
 </head>
 <body class="min-h-screen bg-slate-50 flex items-center justify-center p-4 text-slate-800 selection:bg-indigo-200">
@@ -39,7 +643,7 @@
   <!-- Modal Container -->
   <div id="modal-root"></div>
 
-  <div class="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 relative">
+  <div id="app-shell" class="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 relative">
     
     <!-- ส่วนหัวของแอป -->
     <div id="header-bg" class="bg-indigo-600 p-6 text-white text-center transition-colors duration-300 relative">
@@ -58,15 +662,79 @@
     </div>
 
     <!-- พื้นที่เล่นเกม -->
-    <div class="p-6 relative overflow-hidden">
+    <div id="app-content" class="p-6 relative overflow-hidden">
 
       <!-- ================= หน้าเริ่มเกม ================= -->
       <div id="start-screen" class="text-center py-2 fade-in zoom-in">
         
-        <!-- ตัวเลือกโหมดเกม -->
-        <div class="flex p-1 space-x-1 bg-slate-100 rounded-xl mb-4 border border-slate-200">
-          <button id="tab-math" class="w-1/2 py-2.5 text-sm font-bold rounded-lg bg-white shadow-sm text-indigo-600 border border-slate-200 transition-all">โหมดสมการ</button>
-          <button id="tab-roman" class="w-1/2 py-2.5 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">โหมดเลขโรมัน</button>
+        <!-- ตัวเลือกโหมดหลักแบบกดเลือก (Dropdown) -->
+        <div class="relative mb-4 text-left" id="mode-selector-wrap">
+          <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">เลือกประเภทเกม</label>
+          <button id="mode-selector-btn" type="button" class="w-full flex items-center justify-between bg-white border-2 border-slate-200 rounded-2xl px-4 py-3 shadow-sm hover:border-indigo-300 transition-all">
+            <span class="flex items-center gap-3">
+              <span id="mode-selector-icon" class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></span>
+              <span>
+                <span class="block text-[11px] text-slate-400 font-medium">โหมดที่เลือก</span>
+                <span id="mode-selector-label" class="block text-base font-bold text-slate-800">โหมดสมการ</span>
+              </span>
+            </span>
+            <i id="mode-selector-chevron" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div id="mode-selector-menu" class="hidden absolute z-50 mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden p-1.5">
+            <button type="button" data-main-mode="math" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-indigo-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></span>
+              <span><span class="block font-bold text-slate-700">โหมดสมการ</span><span class="block text-[11px] text-slate-400">ตัวเลข 3 แบบ / อิโมจิ 4 แบบ</span></span>
+            </button>
+            <button type="button" data-main-mode="fast" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-emerald-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5"></i></span>
+              <span><span class="block font-bold text-slate-700">โหมดคิดเลขเร็ว</span><span class="block text-[11px] text-slate-400">เกม 24 / เลข 4 ตัว → ผลลัพธ์ 2 หลัก</span></span>
+            </button>
+            <button type="button" data-main-mode="base" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-cyan-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center"><i data-lucide="binary" class="w-5 h-5"></i></span>
+              <span><span class="block font-bold text-slate-700">โหมดระบบเลขฐาน</span><span class="block text-[11px] text-slate-400">ฐาน 2 / 5 / 10 / 12</span></span>
+            </button>
+            <button type="button" data-main-mode="roman" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-purple-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center"><i data-lucide="landmark" class="w-5 h-5"></i></span>
+              <span><span class="block font-bold text-slate-700">โหมดเลขโรมัน</span><span class="block text-[11px] text-slate-400">อารบิค ↔ โรมัน</span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ตัวเลือกย่อย โหมดสมการ -->
+        <div id="math-submodes" class="flex p-1 space-x-1 bg-slate-100 rounded-xl mb-4 border border-slate-200">
+          <button data-mode="number" class="math-sub-btn w-1/2 py-2.5 text-xs sm:text-sm font-bold rounded-lg bg-white shadow-sm text-indigo-600 border border-slate-200 transition-all">สมการตัวเลข</button>
+          <button data-mode="emoji" class="math-sub-btn w-1/2 py-2.5 text-xs sm:text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🐘 สมการอิโมจิ</button>
+        </div>
+
+        <!-- ตัวเลือกรูปแบบสมการตัวเลข -->
+        <div id="number-equation-submodes" class="grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="signedBasic" class="number-equation-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-indigo-600 border border-slate-200 transition-all">4 ตัว • บวก/ลบ/ศูนย์</button>
+          <button data-mode="nonNegativeBasic" class="number-equation-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">4 ตัว • บวก/ศูนย์</button>
+          <button data-mode="special" class="number-equation-sub-btn col-span-2 py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">พิเศษ 4–5 ตัว • + − × ÷ • √ • ยกกำลัง</button>
+        </div>
+
+        <!-- ตัวเลือกรูปแบบสมการอิโมจิ -->
+        <div id="emoji-equation-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="fixedSigned" class="emoji-equation-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-amber-600 border border-slate-200 transition-all">ค่า 1–5 • บวก/ลบ/ศูนย์</button>
+          <button data-mode="fixedNonNegative" class="emoji-equation-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ค่า 1–5 • บวก/ศูนย์</button>
+          <button data-mode="wideSigned" class="emoji-equation-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">พิเศษ 0–9 • √/ยกกำลัง • 4–5 ตัว • ±/0</button>
+          <button data-mode="wideNonNegative" class="emoji-equation-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">พิเศษ 0–9 • + − × ÷ • 4–5 ตัว • +/0</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย โหมดคิดเลขเร็ว -->
+        <div id="fast-submodes" class="hidden flex p-1 space-x-1 bg-slate-100 rounded-xl mb-4 border border-slate-200">
+          <button data-mode="game24" class="fast-sub-btn w-1/2 py-2.5 text-xs sm:text-sm font-bold rounded-lg bg-white shadow-sm text-emerald-600 border border-slate-200 transition-all">เกม 24</button>
+          <button data-mode="target2" class="fast-sub-btn w-1/2 py-2.5 text-xs sm:text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">4 ตัว → 2 หลัก</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย โหมดระบบเลขฐาน -->
+        <div id="base-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="10to5" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-cyan-600 border border-slate-200 transition-all">ฐาน 10 ➔ ฐาน 5</button>
+          <button data-mode="5to10" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 5 ➔ ฐาน 10</button>
+          <button data-mode="10to2" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 10 ➔ ฐาน 2</button>
+          <button data-mode="2to10" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 2 ➔ ฐาน 10</button>
+          <button data-mode="10to12" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 10 ➔ ฐาน 12</button>
+          <button data-mode="12to10" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 12 ➔ ฐาน 10</button>
         </div>
 
         <!-- ตัวเลือกย่อย โหมดเลขโรมัน -->
@@ -75,7 +743,20 @@
           <button data-mode="toArabic" class="roman-sub-btn w-1/3 py-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">โรมัน➔อารบิค</button>
           <button data-mode="mixed" class="roman-sub-btn w-1/3 py-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-purple-600 border border-slate-200 transition-all">สุ่มผสม</button>
         </div>
+
+        <!-- กุญแจสมการอิโมจิ (อ้างอิงจากไฟล์คะแนนรหัสอิโมจิ) -->
+        <div id="emoji-key" class="hidden mb-4 bg-amber-50 border border-amber-200 rounded-2xl px-3 py-3 text-center">
+          <div id="emoji-key-title" class="text-[11px] font-bold text-amber-700 mb-1">กุญแจรหัสอิโมจิ</div>
+          <div id="emoji-key-values" class="text-sm sm:text-base font-bold text-slate-700 tracking-wide">🐘 = 5 &nbsp; 🦊 = 4 &nbsp; 🐼 = 3 &nbsp; 🐰 = 2 &nbsp; 🐣 = 1</div>
+        </div>
         
+        <!-- ข้อมูลระบบเลขฐาน -->
+        <div id="base-key" class="hidden mb-4 bg-cyan-50 border border-cyan-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-cyan-700 mb-1">กติกาสัญลักษณ์</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">ฐาน 2 ใช้ 0–1 · ฐาน 5 ใช้ 0–4 · ฐาน 12 ใช้ A=10, B=11</div>
+          <span class="hidden bg-cyan-500 bg-cyan-600 bg-cyan-700 hover:bg-cyan-700 text-cyan-600 text-cyan-800 border-cyan-200 focus:border-cyan-500 bg-cyan-100 shadow-cyan-200"></span>
+        </div>
+
         <!-- ตั้งค่าระบบเวลา -->
         <div class="mb-6 flex flex-col gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left">
           <div class="mb-1">
@@ -96,6 +777,19 @@
               </div>
               
               <p class="text-[10px] text-slate-400 text-center mt-1">* เวลาจะเปลี่ยนตามโหมดที่เลือกโดยอัตโนมัติ</p>
+
+              <div class="flex items-center justify-between gap-3 bg-white px-4 py-3 rounded-xl shadow-sm border border-slate-100 mt-1">
+                <div class="flex items-center gap-3 min-w-0">
+                  <span class="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0"><i data-lucide="monitor-up" class="w-5 h-5"></i></span>
+                  <div class="min-w-0">
+                    <div class="text-sm font-bold text-slate-700">โหมดเต็มจอ</div>
+                    <div class="text-[10px] sm:text-[11px] text-slate-400 truncate">ขยายพื้นที่ให้เหมาะกับ iPad และจอคอม</div>
+                  </div>
+                </div>
+                <button id="btn-toggle-fullscreen" type="button" data-fullscreen-toggle class="shrink-0 flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs sm:text-sm font-bold px-3 py-2 rounded-xl shadow-sm active:scale-95 transition-all">
+                  <i data-lucide="maximize-2" class="w-4 h-4"></i><span data-fullscreen-label>เต็มจอ</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -139,8 +833,9 @@
            </div>
            
            <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">โจทย์</div>
+           <div id="question-hint" class="hidden text-[11px] sm:text-xs font-medium text-slate-500 mb-2 text-center"></div>
            <div id="question-display" class="text-4xl sm:text-5xl tracking-wider font-black text-slate-800 text-center whitespace-nowrap overflow-hidden w-full px-2 drop-shadow-sm" style="text-overflow: clip;">
-             1 + 2 * 3 - 4
+             1 + 2 × 3 - 4
            </div>
         </div>
 
@@ -182,6 +877,56 @@
             <button data-val="del" class="numpad-btn bg-rose-50 border-2 border-rose-200 text-slate-600 py-3.5 rounded-xl shadow-sm hover:bg-rose-100 hover:text-rose-600 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center">
               <i data-lucide="delete" class="w-6 h-6"></i>
             </button>
+          </div>
+
+
+          <!-- แป้นพิมพ์ระบบเลขฐาน -->
+          <div id="base-pad" class="hidden">
+            <div class="grid grid-cols-4 gap-2 mb-2">
+              <button data-base-val="1" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">1</button>
+              <button data-base-val="2" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">2</button>
+              <button data-base-val="3" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">3</button>
+              <button data-base-val="4" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">4</button>
+              <button data-base-val="5" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">5</button>
+              <button data-base-val="6" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">6</button>
+              <button data-base-val="7" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">7</button>
+              <button data-base-val="8" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">8</button>
+              <button data-base-val="9" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">9</button>
+              <button data-base-val="0" class="basepad-btn bg-white border-2 border-slate-200 text-2xl font-bold text-slate-700 py-3 rounded-xl shadow-sm hover:border-cyan-300 active:scale-95 transition-all">0</button>
+              <button data-base-val="A" class="basepad-btn bg-cyan-50 border-2 border-cyan-200 text-2xl font-black text-cyan-700 py-3 rounded-xl shadow-sm hover:border-cyan-400 active:scale-95 transition-all">A</button>
+              <button data-base-val="B" class="basepad-btn bg-cyan-50 border-2 border-cyan-200 text-2xl font-black text-cyan-700 py-3 rounded-xl shadow-sm hover:border-cyan-400 active:scale-95 transition-all">B</button>
+            </div>
+            <button data-base-val="del" class="basepad-btn w-full bg-rose-50 border-2 border-rose-200 text-slate-600 py-3 rounded-xl shadow-sm hover:bg-rose-100 hover:text-rose-600 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center">
+              <i data-lucide="delete" class="w-6 h-6"></i>
+            </button>
+          </div>
+
+          <!-- แป้นพิมพ์โหมดคิดเลขเร็ว: พิมพ์วิธีทำโดยใช้ตัวเลขทั้ง 4 ตัว -->
+          <div id="fast-pad" class="hidden">
+            <div class="grid grid-cols-6 gap-2 mb-2">
+              <button data-fast-val="1" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">1</button>
+              <button data-fast-val="2" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">2</button>
+              <button data-fast-val="3" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">3</button>
+              <button data-fast-val="4" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">4</button>
+              <button data-fast-val="5" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">5</button>
+              <button data-fast-val="6" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">6</button>
+              <button data-fast-val="7" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">7</button>
+              <button data-fast-val="8" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">8</button>
+              <button data-fast-val="9" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">9</button>
+              <button data-fast-val="(" class="fastpad-btn bg-slate-100 border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">(</button>
+              <button data-fast-val=")" class="fastpad-btn bg-slate-100 border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">)</button>
+              <button data-fast-val="del" class="fastpad-btn bg-rose-50 border-2 border-rose-200 text-slate-600 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all flex items-center justify-center"><i data-lucide="delete" class="w-5 h-5"></i></button>
+            </div>
+            <div class="grid grid-cols-4 gap-2 mb-2">
+              <button data-fast-val="+" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">+</button>
+              <button data-fast-val="-" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">−</button>
+              <button data-fast-val="*" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">×</button>
+              <button data-fast-val="/" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">÷</button>
+            </div>
+            <div class="flex gap-2">
+              <button id="btn-clear-fast" type="button" class="w-1/3 bg-white border-2 border-slate-200 text-slate-500 font-bold py-3 rounded-xl active:scale-95 transition-all">ล้าง</button>
+              <button id="btn-check-fast" type="button" class="w-2/3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-md shadow-emerald-100 active:scale-95 transition-all flex items-center justify-center gap-2"><i data-lucide="check" class="w-5 h-5"></i> ตรวจคำตอบ</button>
+            </div>
           </div>
         </div>
 
