@@ -633,6 +633,1252 @@
       padding-top: 0.34em !important;
     }
 
+
+    /* ====================================================
+       v12 • เกม "เลขอะไรเอ่ย?"
+       ใช้โครง UI เดิม แต่รองรับรายการคำใบ้หลายบรรทัด
+       ==================================================== */
+    .riddle-display {
+      line-height: 1.25 !important;
+      letter-spacing: normal !important;
+    }
+
+    .riddle-question-wrap {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .riddle-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 2.35rem);
+      line-height: 1.15;
+      font-weight: 900;
+      color: #1e293b;
+      margin-bottom: .8rem;
+    }
+
+    .riddle-clue-list {
+      display: grid;
+      gap: .55rem;
+    }
+
+    .riddle-clue-row {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .65rem .85rem;
+      border-radius: .9rem;
+      background: rgba(255,255,255,.88);
+      border: 1px solid #fde68a;
+      box-shadow: 0 1px 2px rgba(15,23,42,.04);
+      color: #334155;
+      font-size: clamp(.98rem, 2.8vw, 1.2rem);
+      font-weight: 650;
+      line-height: 1.35;
+    }
+
+    .riddle-clue-number {
+      flex: 0 0 auto;
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f59e0b;
+      color: white;
+      font-size: .82rem;
+      font-weight: 900;
+    }
+
+    body.game-active-layout #question-display.riddle-display,
+    body.presentation-mode #question-display.riddle-display {
+      overflow: visible !important;
+      white-space: normal !important;
+    }
+
+    @media (min-width: 700px) {
+      body.game-active-layout #question-display.riddle-display .riddle-title {
+        font-size: clamp(2rem, 3.4vw, 3.3rem);
+      }
+
+      body.game-active-layout #question-display.riddle-display .riddle-clue-row {
+        font-size: clamp(1.15rem, 1.7vw, 1.65rem);
+        padding: clamp(.65rem, 1.1vh, 1rem) clamp(.9rem, 1.5vw, 1.35rem);
+      }
+
+      body.presentation-mode #question-display.riddle-display .riddle-title,
+      body.presentation-mode #rand-question-display.riddle-display .riddle-title {
+        font-size: clamp(2.4rem, 4vw, 4rem);
+      }
+
+      body.presentation-mode #question-display.riddle-display .riddle-clue-row,
+      body.presentation-mode #rand-question-display.riddle-display .riddle-clue-row,
+      body.randomizer-question-active #rand-question-display.riddle-display .riddle-clue-row {
+        font-size: clamp(1.25rem, 2vw, 1.9rem);
+        padding: clamp(.7rem, 1.25vh, 1.05rem) clamp(1rem, 1.7vw, 1.5rem);
+      }
+    }
+
+    #revealed-question .riddle-question-wrap {
+      width: min(100%, 980px);
+    }
+
+    #revealed-question .riddle-title {
+      font-size: clamp(1.25rem, 2.6vw, 2rem);
+    }
+
+    #revealed-question .riddle-clue-row {
+      font-size: clamp(.9rem, 1.5vw, 1.25rem);
+      text-align: left;
+    }
+
+
+    /* ====================================================
+       v14 • เกมงบประมาณ 🛒💰
+       ใช้อิโมจิเป็นสินค้าเท่านั้น — ไม่มีรูปภาพ
+       ==================================================== */
+    .budget-display {
+      font-size: 1rem !important;
+      line-height: 1.25 !important;
+      letter-spacing: normal !important;
+      overflow: visible !important;
+      white-space: normal !important;
+    }
+
+    .budget-game-wrap {
+      width: min(100%, 920px);
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .budget-topline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: .7rem;
+    }
+
+    .budget-mission,
+    .budget-wallet {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .42rem .72rem;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .budget-mission { background:#fff1f2; border:1px solid #fecdd3; color:#be123c; }
+    .budget-wallet { background:#fefce8; border:1px solid #fde68a; color:#a16207; }
+
+    .budget-items-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(105px,1fr));
+      gap:.48rem;
+      margin-bottom:.72rem;
+    }
+
+    .budget-item-card {
+      position:relative;
+      background:rgba(255,255,255,.94);
+      border:1px solid #e2e8f0;
+      border-radius:.9rem;
+      padding:.55rem .45rem;
+      text-align:center;
+      box-shadow:0 1px 2px rgba(15,23,42,.04);
+      min-width:0;
+    }
+    .budget-item-emoji { font-size:clamp(1.7rem,5vw,2.35rem); line-height:1.05; }
+    .budget-big-emoji { font-size:clamp(3rem,9vw,5.2rem); text-align:center; line-height:1.1; padding:.2rem; }
+    .budget-item-name { font-size:.7rem; font-weight:800; color:#475569; margin-top:.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .budget-item-price { font-size:.82rem; font-weight:900; color:#e11d48; margin-top:.1rem; }
+    .budget-qty {
+      position:absolute; top:.3rem; right:.35rem; min-width:1.65rem; height:1.65rem; padding:0 .3rem;
+      border-radius:999px; background:#0f172a; color:white; display:flex; align-items:center; justify-content:center;
+      font-size:.72rem; font-weight:900;
+    }
+
+    .budget-prompt {
+      background:#fff;
+      border:2px solid #fecdd3;
+      border-radius:1rem;
+      padding:.7rem .8rem;
+      text-align:center;
+      color:#334155;
+      font-size:clamp(.92rem,3.6vw,1.15rem);
+      font-weight:900;
+      line-height:1.35;
+      box-shadow:0 2px 5px rgba(15,23,42,.04);
+    }
+
+    .budget-options-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:.48rem;
+      margin-top:.65rem;
+    }
+    .budget-option-card {
+      display:flex; align-items:center; gap:.5rem; min-width:0;
+      background:#fff7f8; border:1px solid #fecdd3; border-radius:.9rem;
+      padding:.58rem .65rem; color:#334155; font-weight:850; line-height:1.25;
+    }
+    .budget-option-num { flex:0 0 auto; font-size:1.25rem; color:#be123c; font-weight:900; }
+    .budget-option-text { min-width:0; font-size:clamp(.82rem,3vw,1rem); word-break:break-word; }
+    .budget-note { margin-top:.55rem; text-align:center; color:#64748b; font-size:.72rem; font-weight:700; }
+
+    body.game-active-layout #question-display.budget-display,
+    body.presentation-mode #question-display.budget-display,
+    body.randomizer-question-active #rand-question-display.budget-display,
+    body.presentation-mode #rand-question-display.budget-display {
+      font-size:1rem !important;
+      line-height:1.25 !important;
+      white-space:normal !important;
+      overflow:visible !important;
+    }
+
+    @media (min-width:700px) {
+      body.game-active-layout #question-display.budget-display .budget-mission,
+      body.game-active-layout #question-display.budget-display .budget-wallet {
+        font-size:clamp(.9rem,1.25vw,1.15rem);
+        padding:.55rem .9rem;
+      }
+      body.game-active-layout #question-display.budget-display .budget-item-card { padding:.7rem .6rem; }
+      body.game-active-layout #question-display.budget-display .budget-item-emoji { font-size:clamp(2.1rem,3vw,3.1rem); }
+      body.game-active-layout #question-display.budget-display .budget-item-name { font-size:clamp(.78rem,1vw,.98rem); }
+      body.game-active-layout #question-display.budget-display .budget-item-price { font-size:clamp(.95rem,1.25vw,1.2rem); }
+      body.game-active-layout #question-display.budget-display .budget-prompt { font-size:clamp(1.05rem,1.55vw,1.45rem); padding:.8rem 1rem; }
+      body.game-active-layout #question-display.budget-display .budget-option-text { font-size:clamp(.95rem,1.3vw,1.2rem); }
+
+      body.presentation-mode #question-display.budget-display .budget-game-wrap,
+      body.presentation-mode #rand-question-display.budget-display .budget-game-wrap { width:min(94vw,1180px); }
+      body.presentation-mode #question-display.budget-display .budget-item-emoji,
+      body.presentation-mode #rand-question-display.budget-display .budget-item-emoji { font-size:clamp(2.5rem,3.4vw,4rem); }
+      body.presentation-mode #question-display.budget-display .budget-item-name,
+      body.presentation-mode #rand-question-display.budget-display .budget-item-name { font-size:clamp(.9rem,1.15vw,1.18rem); }
+      body.presentation-mode #question-display.budget-display .budget-item-price,
+      body.presentation-mode #rand-question-display.budget-display .budget-item-price { font-size:clamp(1.05rem,1.45vw,1.45rem); }
+      body.presentation-mode #question-display.budget-display .budget-prompt,
+      body.presentation-mode #rand-question-display.budget-display .budget-prompt { font-size:clamp(1.2rem,1.75vw,1.7rem); }
+      body.presentation-mode #question-display.budget-display .budget-option-text,
+      body.presentation-mode #rand-question-display.budget-display .budget-option-text { font-size:clamp(1.05rem,1.45vw,1.4rem); }
+      body.presentation-mode #budget-choice-pad .budget-choice-btn { padding-top:clamp(1rem,2vh,1.5rem); padding-bottom:clamp(1rem,2vh,1.5rem); }
+    }
+
+    /* หน้าเฉลยของเกมงบประมาณต้องอ่านเป็นการ์ดหลายบรรทัด ไม่บังคับบรรทัดเดียวเหมือนสมการ */
+    #revealed-question:has(.budget-game-wrap) {
+      width:100%;
+      white-space:normal !important;
+      font-size:1rem !important;
+      line-height:1.25 !important;
+    }
+    #revealed-question:has(.budget-game-wrap) + span { display:none !important; }
+    #revealed-question:has(.budget-game-wrap) ~ #revealed-answer {
+      display:block; width:100%; margin-top:.7rem; font-size:clamp(1.6rem,4vw,2.7rem) !important;
+    }
+    #revealed-screen > .bg-slate-100 > div:has(#revealed-question .budget-game-wrap) {
+      flex-direction:column !important; flex-wrap:wrap !important; white-space:normal !important;
+    }
+    body.presentation-mode #revealed-screen > .bg-slate-100 > div:has(#revealed-question .budget-game-wrap) {
+      flex-direction:column !important; flex-wrap:wrap !important; white-space:normal !important;
+    }
+    body.presentation-mode #revealed-question:has(.budget-game-wrap) { white-space:normal !important; font-size:1rem !important; }
+
+    @media (max-width:480px) {
+      .budget-items-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .budget-options-grid { grid-template-columns:1fr; }
+      .budget-option-card { padding:.48rem .58rem; }
+      .budget-item-card { padding:.46rem .35rem; }
+      .budget-prompt { padding:.6rem .65rem; }
+    }
+
+
+    /* ====================================================
+       v15 • เกมถอดรหัสอิโมจิ — แนวสมการผลไม้ แต่สุ่มธีมอิโมจิ
+       ==================================================== */
+    .emoji-puzzle-display { line-height:1.2!important; letter-spacing:normal!important; }
+    .emoji-puzzle-wrap { width:min(100%,760px); margin:0 auto; }
+    .emoji-puzzle-head { display:flex; align-items:center; justify-content:center; gap:.5rem; flex-wrap:wrap; margin-bottom:.65rem; }
+    .emoji-puzzle-badge { display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .65rem; border-radius:999px; background:#fff7ed; border:1px solid #fed7aa; color:#c2410c; font-size:.72rem; font-weight:900; }
+    .emoji-puzzle-rows { display:grid; gap:.48rem; }
+    .emoji-puzzle-row { display:flex; justify-content:center; align-items:center; min-height:2.8rem; padding:.48rem .65rem; border-radius:.9rem; background:rgba(255,255,255,.94); border:1px solid #e2e8f0; box-shadow:0 1px 2px rgba(15,23,42,.04); color:#1e293b; font-size:clamp(1.35rem,5vw,2rem); font-weight:900; white-space:nowrap; }
+    .emoji-puzzle-row.final { margin-top:.18rem; background:#fff7ed; border:2px dashed #fb923c; color:#c2410c; }
+    .emoji-puzzle-tip { margin-top:.55rem; color:#64748b; font-size:.72rem; font-weight:700; text-align:center; }
+    .emoji-puzzle-op { color:#475569; padding:0 .16em; }
+    .emoji-puzzle-eq { color:#94a3b8; padding:0 .24em; }
+    .emoji-puzzle-result { color:#0f172a; }
+    .emoji-puzzle-question { color:#ea580c; }
+
+    body.game-active-layout #question-display.emoji-puzzle-display,
+    body.presentation-mode #question-display.emoji-puzzle-display,
+    body.randomizer-question-active #rand-question-display.emoji-puzzle-display,
+    body.presentation-mode #rand-question-display.emoji-puzzle-display { overflow:visible!important; white-space:normal!important; }
+
+    @media (min-width:700px) {
+      body.game-active-layout #question-display.emoji-puzzle-display .emoji-puzzle-wrap { width:min(92vw,860px); }
+      body.game-active-layout #question-display.emoji-puzzle-display .emoji-puzzle-row { font-size:clamp(1.8rem,2.8vw,3rem); padding:.65rem .9rem; min-height:3.8rem; }
+      body.game-active-layout #question-display.emoji-puzzle-display .emoji-puzzle-badge { font-size:clamp(.78rem,1vw,1rem); }
+      body.presentation-mode #question-display.emoji-puzzle-display .emoji-puzzle-wrap,
+      body.presentation-mode #rand-question-display.emoji-puzzle-display .emoji-puzzle-wrap { width:min(92vw,1000px); }
+      body.presentation-mode #question-display.emoji-puzzle-display .emoji-puzzle-row,
+      body.presentation-mode #rand-question-display.emoji-puzzle-display .emoji-puzzle-row { font-size:clamp(2.15rem,3.25vw,3.8rem); padding:.72rem 1rem; min-height:4.4rem; }
+      body.presentation-mode #question-display.emoji-puzzle-display .emoji-puzzle-badge,
+      body.presentation-mode #rand-question-display.emoji-puzzle-display .emoji-puzzle-badge { font-size:clamp(.9rem,1.2vw,1.15rem); }
+    }
+
+    #revealed-question:has(.emoji-puzzle-wrap) { white-space:normal!important; width:100%; max-width:980px; font-size:1rem!important; }
+    #revealed-question .emoji-puzzle-wrap { width:min(100%,900px); }
+    #revealed-question .emoji-puzzle-row { font-size:clamp(1.15rem,2.2vw,2rem); }
+
+
+    /* ====================================================
+       v16 • เกมนาฬิกาปริศนา
+       ==================================================== */
+    .clock-display {
+      line-height: 1.25 !important;
+      letter-spacing: normal !important;
+      white-space: normal !important;
+      overflow: visible !important;
+    }
+    .clock-game-wrap {
+      width: min(100%, 860px);
+      margin: 0 auto;
+      display: grid;
+      gap: .75rem;
+      text-align: center;
+    }
+    .clock-badge-row {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.5rem;
+      flex-wrap:wrap;
+    }
+    .clock-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      padding:.38rem .72rem;
+      border-radius:999px;
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      color:#0369a1;
+      font-size:.72rem;
+      font-weight:900;
+    }
+    .clock-scene {
+      background:linear-gradient(135deg,#f0f9ff,#ffffff);
+      border:2px solid #bae6fd;
+      border-radius:1.25rem;
+      padding:.8rem 1rem;
+      box-shadow:inset 0 1px 2px rgba(15,23,42,.04);
+    }
+    .clock-scene-emoji {
+      font-size:clamp(2rem,6vw,3.5rem);
+      line-height:1;
+      margin-bottom:.35rem;
+    }
+    .clock-main-time {
+      font-size:clamp(2rem,8vw,4.5rem);
+      line-height:1;
+      font-weight:950;
+      color:#0f172a;
+      letter-spacing:.04em;
+    }
+    .clock-scene-label {
+      margin-top:.35rem;
+      font-size:clamp(.8rem,2.6vw,1rem);
+      font-weight:800;
+      color:#64748b;
+    }
+    .clock-prompt {
+      background:#fff;
+      border:1px solid #e2e8f0;
+      border-radius:1rem;
+      padding:.72rem .9rem;
+      color:#334155;
+      font-size:clamp(.98rem,3.2vw,1.25rem);
+      line-height:1.5;
+      font-weight:800;
+      box-shadow:0 1px 2px rgba(15,23,42,.04);
+    }
+    .clock-detail {
+      display:flex;
+      justify-content:center;
+      gap:.45rem;
+      flex-wrap:wrap;
+    }
+    .clock-detail-chip {
+      display:inline-flex;
+      align-items:center;
+      gap:.3rem;
+      padding:.35rem .62rem;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:.7rem;
+      color:#475569;
+      font-size:.76rem;
+      font-weight:850;
+    }
+    .clock-options-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:.5rem;
+    }
+    .clock-option {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.45rem;
+      min-height:3rem;
+      padding:.55rem .6rem;
+      background:#fff;
+      border:2px solid #e0f2fe;
+      border-radius:.9rem;
+      color:#334155;
+      font-weight:900;
+      font-size:clamp(.88rem,2.8vw,1.1rem);
+    }
+    .clock-option-num { color:#0284c7; font-size:1.15em; flex:0 0 auto; }
+    .clock-note {
+      font-size:.72rem;
+      color:#64748b;
+      font-weight:750;
+    }
+    #revealed-question:has(.clock-game-wrap) {
+      white-space:normal !important;
+      overflow:visible !important;
+      width:100%;
+    }
+    body.game-active-layout #question-display.clock-display,
+    body.presentation-mode #question-display.clock-display,
+    body.randomizer-question-active #rand-question-display.clock-display,
+    body.presentation-mode #rand-question-display.clock-display {
+      overflow:visible !important;
+      white-space:normal !important;
+    }
+    @media (min-width:700px) {
+      body.game-active-layout #question-display.clock-display .clock-game-wrap { width:min(92vw,980px); }
+      body.game-active-layout #question-display.clock-display .clock-main-time { font-size:clamp(3rem,5vw,5.2rem); }
+      body.game-active-layout #question-display.clock-display .clock-prompt { font-size:clamp(1.1rem,1.55vw,1.45rem); }
+      body.game-active-layout #question-display.clock-display .clock-option { font-size:clamp(1rem,1.3vw,1.25rem); }
+      body.presentation-mode #question-display.clock-display .clock-game-wrap,
+      body.presentation-mode #rand-question-display.clock-display .clock-game-wrap { width:min(94vw,1180px); }
+      body.presentation-mode #question-display.clock-display .clock-main-time,
+      body.presentation-mode #rand-question-display.clock-display .clock-main-time { font-size:clamp(3.5rem,6vw,6.3rem); }
+      body.presentation-mode #question-display.clock-display .clock-prompt,
+      body.presentation-mode #rand-question-display.clock-display .clock-prompt { font-size:clamp(1.25rem,1.85vw,1.8rem); }
+      body.presentation-mode #question-display.clock-display .clock-option,
+      body.presentation-mode #rand-question-display.clock-display .clock-option { font-size:clamp(1.1rem,1.55vw,1.5rem); min-height:4rem; }
+    }
+    @media (max-width:430px) {
+      .clock-options-grid { grid-template-columns:1fr; }
+      .clock-game-wrap { gap:.55rem; }
+      .clock-scene { padding:.65rem .75rem; }
+      .clock-prompt { padding:.62rem .72rem; }
+    }
+
+
+    /* v17 • Flash Math */
+    .flash-display{white-space:normal!important;overflow:visible!important;line-height:1.15!important;letter-spacing:normal!important}
+    .flash-game-wrap{width:min(100%,820px);margin:0 auto;display:grid;gap:.8rem;text-align:center}
+    .flash-badge-row{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap}
+    .flash-badge{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:999px;background:#f5f3ff;border:1px solid #ddd6fe;color:#6d28d9;font-size:.72rem;font-weight:900}
+    .flash-stage-card{position:relative;overflow:hidden;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;border-radius:1.4rem;border:2px solid #ddd6fe;background:radial-gradient(circle at 50% 35%,#fff 0%,#faf5ff 55%,#f5f3ff 100%);box-shadow:inset 0 1px 3px rgba(15,23,42,.04),0 8px 24px rgba(109,40,217,.08)}
+    .flash-stage-card::before{content:'';position:absolute;width:180px;height:180px;border-radius:999px;background:rgba(139,92,246,.06);filter:blur(4px)}
+    .flash-stage-icon{position:relative;z-index:1;font-size:clamp(2rem,7vw,4rem);line-height:1;margin-bottom:.45rem}
+    .flash-big-value{position:relative;z-index:1;font-size:clamp(3.6rem,15vw,8.5rem);line-height:.95;font-weight:950;color:#4c1d95;text-shadow:0 3px 0 rgba(109,40,217,.08);letter-spacing:.02em}
+    .flash-big-value.flash-operation{color:#7c3aed}
+    .flash-stage-label{position:relative;z-index:1;margin-top:.65rem;color:#64748b;font-size:clamp(.9rem,3vw,1.15rem);font-weight:850}
+    .flash-progress{display:flex;justify-content:center;gap:.35rem;flex-wrap:wrap}
+    .flash-dot{width:.55rem;height:.55rem;border-radius:999px;background:#e2e8f0;border:1px solid #cbd5e1}.flash-dot.active{background:#8b5cf6;border-color:#7c3aed;transform:scale(1.12)}.flash-dot.done{background:#c4b5fd;border-color:#a78bfa}
+    .flash-memory-note{padding:.55rem .75rem;border-radius:.85rem;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:.8rem;line-height:1.35;font-weight:850}
+    .flash-reveal-chain{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;padding:.6rem}
+    .flash-reveal-chip{display:inline-flex;align-items:center;justify-content:center;min-width:3.4rem;padding:.48rem .7rem;border-radius:.8rem;background:#fff;border:1px solid #ddd6fe;color:#5b21b6;font-size:clamp(.9rem,2.6vw,1.15rem);font-weight:900}
+    .flash-reveal-arrow{color:#a78bfa;font-weight:950;font-size:1.1rem}
+    #revealed-question:has(.flash-game-wrap){white-space:normal!important;overflow:visible!important;width:100%}
+    body.game-active-layout #question-display.flash-display,body.presentation-mode #question-display.flash-display,body.randomizer-question-active #rand-question-display.flash-display,body.presentation-mode #rand-question-display.flash-display{overflow:visible!important;white-space:normal!important}
+    @media(min-width:700px){body.game-active-layout #question-display.flash-display .flash-game-wrap{width:min(90vw,980px)}body.game-active-layout #question-display.flash-display .flash-stage-card{min-height:clamp(220px,31vh,360px)}body.game-active-layout #question-display.flash-display .flash-big-value{font-size:clamp(5rem,9vw,9rem)}body.presentation-mode #question-display.flash-display .flash-game-wrap,body.presentation-mode #rand-question-display.flash-display .flash-game-wrap{width:min(94vw,1180px)}body.presentation-mode #question-display.flash-display .flash-stage-card,body.presentation-mode #rand-question-display.flash-display .flash-stage-card{min-height:clamp(270px,40vh,480px)}body.presentation-mode #question-display.flash-display .flash-big-value,body.presentation-mode #rand-question-display.flash-display .flash-big-value{font-size:clamp(6rem,11vw,11rem)}}
+
+
+    /* ====================================================
+       v18 • เกม 66 "จำตัวเลข"
+       ==================================================== */
+    .memory-numbers-display {
+      white-space: normal !important;
+      overflow: visible !important;
+      line-height: 1.2 !important;
+      letter-spacing: normal !important;
+    }
+
+    .memory-numbers-wrap {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      display: grid;
+      gap: .8rem;
+      text-align: center;
+    }
+
+    .memory-numbers-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .45rem;
+      flex-wrap: wrap;
+    }
+
+    .memory-numbers-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      background: #f0fdfa;
+      border: 1px solid #99f6e4;
+      color: #0f766e;
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .memory-numbers-stage {
+      min-height: 205px;
+      padding: 1rem;
+      border-radius: 1.4rem;
+      border: 2px solid #99f6e4;
+      background: radial-gradient(circle at 50% 30%, #ffffff 0%, #f0fdfa 70%, #ccfbf1 100%);
+      box-shadow: inset 0 1px 3px rgba(15,23,42,.04), 0 8px 24px rgba(13,148,136,.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .memory-numbers-title {
+      font-size: clamp(1.25rem, 4.4vw, 2.1rem);
+      font-weight: 950;
+      color: #0f766e;
+      margin-bottom: .75rem;
+    }
+
+    .memory-number-cards {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(.35rem, 1.5vw, .75rem);
+      flex-wrap: wrap;
+    }
+
+    .memory-number-card {
+      min-width: clamp(3.15rem, 12vw, 5.3rem);
+      min-height: clamp(3.55rem, 13vw, 5.8rem);
+      padding: .45rem .6rem;
+      border-radius: 1rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      border: 2px solid #5eead4;
+      box-shadow: 0 5px 14px rgba(13,148,136,.12);
+      color: #134e4a;
+      font-size: clamp(1.7rem, 7vw, 3.25rem);
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .memory-question-box {
+      width: 100%;
+      padding: .95rem 1rem;
+      border-radius: 1.15rem;
+      background: #ffffff;
+      border: 2px solid #99f6e4;
+      color: #134e4a;
+      font-size: clamp(1.05rem, 4vw, 1.55rem);
+      line-height: 1.45;
+      font-weight: 900;
+      box-shadow: 0 4px 16px rgba(15,118,110,.08);
+    }
+
+    .memory-hidden-icon {
+      font-size: clamp(3rem, 13vw, 6rem);
+      line-height: 1;
+      margin-bottom: .4rem;
+    }
+
+    .memory-numbers-note {
+      color: #64748b;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .memory-reveal-row {
+      display: flex;
+      justify-content: center;
+      gap: .45rem;
+      flex-wrap: wrap;
+    }
+
+    .memory-reveal-card {
+      min-width: 2.7rem;
+      padding: .42rem .55rem;
+      border-radius: .72rem;
+      background: white;
+      border: 1px solid #99f6e4;
+      color: #115e59;
+      font-size: clamp(.95rem, 2.8vw, 1.25rem);
+      font-weight: 900;
+    }
+
+    #revealed-question:has(.memory-numbers-wrap) {
+      white-space: normal !important;
+      overflow: visible !important;
+      width: 100%;
+    }
+
+    body.game-active-layout #question-display.memory-numbers-display,
+    body.presentation-mode #question-display.memory-numbers-display,
+    body.randomizer-question-active #rand-question-display.memory-numbers-display,
+    body.presentation-mode #rand-question-display.memory-numbers-display {
+      overflow: visible !important;
+      white-space: normal !important;
+    }
+
+    @media (min-width: 700px) {
+      body.game-active-layout #question-display.memory-numbers-display .memory-numbers-wrap {
+        width: min(92vw, 1050px);
+      }
+      body.game-active-layout #question-display.memory-numbers-display .memory-numbers-stage {
+        min-height: clamp(230px, 32vh, 390px);
+      }
+      body.game-active-layout #question-display.memory-numbers-display .memory-number-card {
+        min-width: clamp(4.4rem, 7vw, 6.7rem);
+        min-height: clamp(4.8rem, 8vw, 7rem);
+        font-size: clamp(2.4rem, 4.4vw, 4rem);
+      }
+
+      body.presentation-mode #question-display.memory-numbers-display .memory-numbers-wrap,
+      body.presentation-mode #rand-question-display.memory-numbers-display .memory-numbers-wrap {
+        width: min(95vw, 1280px);
+      }
+      body.presentation-mode #question-display.memory-numbers-display .memory-numbers-stage,
+      body.presentation-mode #rand-question-display.memory-numbers-display .memory-numbers-stage {
+        min-height: clamp(280px, 42vh, 500px);
+      }
+      body.presentation-mode #question-display.memory-numbers-display .memory-number-card,
+      body.presentation-mode #rand-question-display.memory-numbers-display .memory-number-card {
+        min-width: clamp(5rem, 7.5vw, 7.8rem);
+        min-height: clamp(5.5rem, 8vw, 8.2rem);
+        font-size: clamp(3rem, 5vw, 5rem);
+      }
+      body.presentation-mode #question-display.memory-numbers-display .memory-question-box,
+      body.presentation-mode #rand-question-display.memory-numbers-display .memory-question-box {
+        font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+      }
+    }
+
+
+    /* v20 • จัดแป้นคิดเลขเร็วเป็น 4 บรรทัดตามโจทย์ */
+    #fast-digit-row .fast-digit-btn {
+      font-variant-numeric: tabular-nums;
+    }
+    @media (max-width: 430px) {
+      #fast-pad .fastpad-btn {
+        padding-left: .25rem !important;
+        padding-right: .25rem !important;
+      }
+      #fast-digit-row .fast-digit-btn {
+        font-size: 1.45rem !important;
+      }
+      #fast-pad .grid-cols-6 .fastpad-btn {
+        font-size: 1.35rem !important;
+      }
+    }
+
+
+    /* ====================================================
+       v21 • เกมเศษส่วน
+       ==================================================== */
+    .fraction-display{white-space:normal!important;overflow:visible!important;line-height:1.2!important;letter-spacing:normal!important}
+    .fraction-game-wrap{width:min(100%,880px);margin:0 auto;display:grid;gap:.75rem;text-align:center}
+    .fraction-badges{display:flex;justify-content:center;gap:.45rem;flex-wrap:wrap}
+    .fraction-badge{display:inline-flex;align-items:center;justify-content:center;gap:.3rem;padding:.35rem .7rem;border-radius:999px;background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;font-size:.72rem;font-weight:900}
+    .fraction-stage{background:linear-gradient(135deg,#eff6ff,#fff);border:2px solid #bfdbfe;border-radius:1.3rem;padding:.9rem 1rem;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)}
+    .fraction-prompt{margin-bottom:.55rem;color:#64748b;font-size:clamp(.85rem,2.8vw,1.05rem);font-weight:850}
+    .fraction-expression{display:flex;align-items:center;justify-content:center;gap:clamp(.55rem,2vw,1.2rem);flex-wrap:wrap;color:#0f172a;font-size:clamp(1.6rem,6vw,3rem);font-weight:950}
+    .fraction-operator{color:#2563eb;font-size:1.05em;font-weight:950}
+    .frac{display:inline-grid;grid-template-rows:auto auto;align-items:center;justify-items:stretch;min-width:1.65em;line-height:1;vertical-align:middle;font-variant-numeric:tabular-nums}
+    .frac-num{padding:0 .16em .10em;border-bottom:.095em solid currentColor;text-align:center}
+    .frac-den{padding:.10em .16em 0;text-align:center}
+    .fraction-order-source{display:flex;justify-content:center;align-items:center;gap:.65rem;flex-wrap:wrap;font-size:clamp(1.2rem,4.5vw,2rem);font-weight:900}
+    .fraction-option-sequence{display:flex;justify-content:center;align-items:center;gap:.35rem;flex-wrap:wrap;font-size:clamp(.9rem,3vw,1.15rem);font-weight:900}
+    .fraction-choice-btn .frac{font-size:1.2rem}
+    .fraction-choice-btn .fraction-choice-symbol{font-size:clamp(1.9rem,7vw,3rem);line-height:1;font-weight:950}
+    .fraction-choice-btn .fraction-choice-number{font-size:clamp(1.4rem,5vw,2.2rem);font-weight:950}
+    .fraction-options-preview{display:none;gap:.45rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+    #rand-question-display .fraction-options-preview,#revealed-question .fraction-options-preview{display:grid}
+    .fraction-preview-option{display:flex;justify-content:center;align-items:center;gap:.4rem;min-height:3.3rem;padding:.4rem .55rem;border-radius:.8rem;background:#fff;border:1px solid #bfdbfe;color:#1e3a8a;font-weight:900}
+    .fraction-preview-index{color:#2563eb;font-size:1.1rem;font-weight:950;flex:0 0 auto}
+    .fraction-wide-preview{grid-template-columns:1fr!important}
+    #revealed-question:has(.fraction-game-wrap){white-space:normal!important;overflow:visible!important;width:100%}
+    body.game-active-layout #question-display.fraction-display,body.presentation-mode #question-display.fraction-display,body.randomizer-question-active #rand-question-display.fraction-display,body.presentation-mode #rand-question-display.fraction-display{overflow:visible!important;white-space:normal!important}
+    @media(min-width:700px){
+      body.game-active-layout #question-display.fraction-display .fraction-game-wrap{width:min(92vw,1000px)}
+      body.game-active-layout #question-display.fraction-display .fraction-expression{font-size:clamp(2.3rem,4.2vw,4rem)}
+      body.presentation-mode #question-display.fraction-display .fraction-game-wrap,body.presentation-mode #rand-question-display.fraction-display .fraction-game-wrap{width:min(94vw,1180px)}
+      body.presentation-mode #question-display.fraction-display .fraction-expression,body.presentation-mode #rand-question-display.fraction-display .fraction-expression{font-size:clamp(3rem,5.7vw,5.8rem)}
+      body.presentation-mode #question-display.fraction-display .fraction-stage,body.presentation-mode #rand-question-display.fraction-display .fraction-stage{padding:1.3rem 1.5rem}
+    }
+    @media(max-width:430px){
+      .fraction-choice-btn{padding-left:.35rem!important;padding-right:.35rem!important}
+      .fraction-option-sequence{font-size:.82rem;gap:.2rem}
+    }
+
+
+    /* ====================================================
+       v22 • แก้เมนูประเภทเกมล้นจอบนมือถือ
+       ==================================================== */
+    #mode-selector-wrap { isolation:isolate; }
+
+    #mode-selector-menu {
+      overflow-x:hidden;
+      overflow-y:auto;
+      overscroll-behavior:contain;
+      -webkit-overflow-scrolling:touch;
+      touch-action:pan-y;
+      max-height:min(70dvh,760px);
+      scrollbar-gutter:stable;
+    }
+
+    #mode-selector-menu::-webkit-scrollbar { width:5px; }
+    #mode-selector-menu::-webkit-scrollbar-track { background:transparent; }
+    #mode-selector-menu::-webkit-scrollbar-thumb {
+      background:rgba(148,163,184,.55);
+      border-radius:999px;
+    }
+
+    @media(max-width:699px){
+      #mode-selector-menu {
+        padding:.35rem!important;
+        border-radius:1rem!important;
+      }
+      #mode-selector-menu .main-mode-option {
+        gap:.65rem!important;
+        padding:.48rem .55rem!important;
+        border-radius:.75rem!important;
+      }
+      #mode-selector-menu .main-mode-option > span:first-child {
+        width:2.15rem!important;
+        height:2.15rem!important;
+        border-radius:.7rem!important;
+        flex:0 0 auto;
+      }
+      #mode-selector-menu .main-mode-option > span:first-child i {
+        width:1.15rem!important;
+        height:1.15rem!important;
+      }
+      #mode-selector-menu .main-mode-option > span:first-child > span {
+        font-size:1.05rem!important;
+      }
+      #mode-selector-menu .main-mode-option span.block.font-bold {
+        font-size:.95rem!important;
+        line-height:1.15!important;
+      }
+      #mode-selector-menu .main-mode-option span.block.text-\[11px\] {
+        font-size:.67rem!important;
+        line-height:1.18!important;
+        margin-top:.08rem;
+      }
+    }
+
+    @media(max-height:700px){
+      #mode-selector-menu .main-mode-option {
+        padding-top:.36rem!important;
+        padding-bottom:.36rem!important;
+      }
+    }
+
+
+    /* ====================================================
+       v23 • เกม 1 ใส่เครื่องหมายให้ถูก
+       ==================================================== */
+    .operator-gap-display {
+      white-space: normal !important;
+      overflow: visible !important;
+      line-height: 1.15 !important;
+      letter-spacing: normal !important;
+    }
+
+    .operator-gap-wrap {
+      width: min(100%, 920px);
+      margin: 0 auto;
+      display: grid;
+      gap: .75rem;
+      text-align: center;
+    }
+
+    .operator-gap-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .45rem;
+      flex-wrap: wrap;
+    }
+
+    .operator-gap-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      background: #f7fee7;
+      border: 1px solid #d9f99d;
+      color: #4d7c0f;
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .operator-gap-stage {
+      background: linear-gradient(135deg,#f7fee7,#ffffff);
+      border: 2px solid #d9f99d;
+      border-radius: 1.35rem;
+      padding: 1rem .75rem;
+      box-shadow: inset 0 1px 2px rgba(15,23,42,.04);
+    }
+
+    .operator-gap-prompt {
+      color: #64748b;
+      font-size: clamp(.85rem,2.8vw,1.05rem);
+      font-weight: 850;
+      margin-bottom: .7rem;
+    }
+
+    .operator-gap-expression {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: clamp(.3rem,1.3vw,.7rem);
+      color: #0f172a;
+      font-size: clamp(1.8rem,7.5vw,3.7rem);
+      line-height: 1.22;
+      font-weight: 950;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .operator-gap-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.22em;
+      height: 1.18em;
+      padding: 0 .12em;
+      border-radius: .24em;
+      border: .075em dashed #84cc16;
+      background: #f7fee7;
+      color: #65a30d;
+      font: inherit;
+      font-weight: 950;
+      line-height: 1;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      vertical-align: middle;
+    }
+
+    button.operator-gap-slot {
+      cursor: pointer;
+    }
+
+    .operator-gap-slot.active {
+      background: #ecfccb;
+      border-style: solid;
+      box-shadow: 0 0 0 .08em rgba(132,204,22,.24);
+      transform: scale(1.06);
+    }
+
+    .operator-gap-slot.filled {
+      background: #ffffff;
+      border-style: solid;
+      color: #3f6212;
+    }
+
+    .operator-gap-slot.solved {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #15803d;
+      border-style: solid;
+    }
+
+    .operator-gap-equals {
+      color: #65a30d;
+      padding: 0 .08em;
+    }
+
+    .operator-gap-note {
+      color: #64748b;
+      font-size: .76rem;
+      font-weight: 800;
+    }
+
+    #revealed-question:has(.operator-gap-wrap) {
+      white-space: normal !important;
+      overflow: visible !important;
+      width: 100%;
+    }
+
+    body.game-active-layout #question-display.operator-gap-display,
+    body.presentation-mode #question-display.operator-gap-display,
+    body.randomizer-question-active #rand-question-display.operator-gap-display,
+    body.presentation-mode #rand-question-display.operator-gap-display {
+      overflow: visible !important;
+      white-space: normal !important;
+    }
+
+    @media(min-width:700px) {
+      body.game-active-layout #question-display.operator-gap-display .operator-gap-wrap {
+        width: min(92vw,1050px);
+      }
+      body.game-active-layout #question-display.operator-gap-display .operator-gap-expression {
+        font-size: clamp(2.8rem,5vw,5.4rem);
+      }
+      body.presentation-mode #question-display.operator-gap-display .operator-gap-wrap,
+      body.presentation-mode #rand-question-display.operator-gap-display .operator-gap-wrap {
+        width: min(95vw,1280px);
+      }
+      body.presentation-mode #question-display.operator-gap-display .operator-gap-expression,
+      body.presentation-mode #rand-question-display.operator-gap-display .operator-gap-expression {
+        font-size: clamp(3.8rem,6.5vw,7rem);
+      }
+    }
+
+    @media(max-width:430px) {
+      #operator-gap-pad .operator-gap-op-btn {
+        padding-left: .2rem !important;
+        padding-right: .2rem !important;
+      }
+      #btn-operator-gap-undo,
+      #btn-operator-gap-clear,
+      #btn-operator-gap-check {
+        font-size: .78rem !important;
+        padding-left: .2rem !important;
+        padding-right: .2rem !important;
+      }
+    }
+
+
+    /* ====================================================
+       v24 • เกมอนุกรม
+       ==================================================== */
+    .sequence-display{white-space:normal!important;overflow:visible!important;line-height:1.18!important;letter-spacing:normal!important}
+    .sequence-wrap{width:min(100%,980px);margin:0 auto;display:grid;gap:.75rem;text-align:center}
+    .sequence-badges{display:flex;justify-content:center;align-items:center;gap:.4rem;flex-wrap:wrap}
+    .sequence-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.34rem .68rem;border-radius:999px;background:#fdf4ff;border:1px solid #f5d0fe;color:#a21caf;font-size:.7rem;font-weight:900}
+    .sequence-stage{background:linear-gradient(135deg,#fdf4ff,#fff);border:2px solid #f5d0fe;border-radius:1.35rem;padding:1rem .7rem;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)}
+    .sequence-prompt{color:#64748b;font-size:clamp(.82rem,2.7vw,1.02rem);font-weight:850;margin-bottom:.65rem}
+    .sequence-terms{display:flex;align-items:center;justify-content:center;gap:clamp(.3rem,1.4vw,.72rem);flex-wrap:wrap;color:#0f172a;font-size:clamp(1.55rem,6.5vw,3.3rem);font-weight:950;font-variant-numeric:tabular-nums}
+    .sequence-term{display:inline-flex;align-items:center;justify-content:center;min-width:1.25em}
+    .sequence-comma{color:#c026d3;font-weight:900;margin-left:-.18rem}
+    .sequence-question-mark{display:inline-flex;align-items:center;justify-content:center;min-width:1.35em;height:1.35em;border-radius:.35em;background:#fae8ff;border:.07em dashed #d946ef;color:#a21caf}
+    .sequence-options-preview{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+    #rand-question-display .sequence-options-preview{display:grid}
+    .sequence-preview-option{display:flex;align-items:center;justify-content:center;gap:.45rem;min-height:3.2rem;padding:.4rem .55rem;border-radius:.85rem;background:#fff;border:1px solid #f5d0fe;color:#86198f;font-weight:900}
+    .sequence-choice-btn .seq-option-value{font-size:clamp(1.25rem,5vw,2rem);font-weight:950;line-height:1.1}
+    .sequence-choice-btn .frac{font-size:1.15rem}
+    .sequence-reveal-wrap{width:min(100%,980px);margin:0 auto;display:grid;gap:.8rem;text-align:center}
+    .sequence-reveal-answer{display:flex;justify-content:center;align-items:center;gap:.55rem;flex-wrap:wrap;font-size:clamp(1.45rem,5.5vw,2.6rem);font-weight:950;color:#a21caf}
+    .sequence-method{background:#fff;border:2px solid #f5d0fe;border-radius:1.15rem;padding:.85rem 1rem;text-align:left;color:#334155;font-size:clamp(.78rem,2.8vw,1rem);line-height:1.55;font-weight:700}
+    .sequence-method-title{display:flex;align-items:center;gap:.45rem;color:#86198f;font-size:1.02em;font-weight:950;margin-bottom:.45rem}
+    .sequence-method-step{display:flex;gap:.5rem;align-items:flex-start;margin:.26rem 0}
+    .sequence-method-step::before{content:'•';color:#d946ef;font-weight:950;flex:0 0 auto}
+    #revealed-question:has(.sequence-reveal-wrap){width:100%;max-width:none;white-space:normal!important;overflow:visible!important}
+    #revealed-question:has(.sequence-reveal-wrap)+span{display:none!important}
+    #revealed-question:has(.sequence-reveal-wrap)~#revealed-answer{display:none!important}
+    #rand-question-card:has(.sequence-reveal-wrap)>div.text-xl{display:none!important}
+    body.game-active-layout #question-display.sequence-display,body.presentation-mode #question-display.sequence-display,body.randomizer-question-active #rand-question-display.sequence-display,body.presentation-mode #rand-question-display.sequence-display{overflow:visible!important;white-space:normal!important}
+    @media(min-width:700px){
+      body.game-active-layout #question-display.sequence-display .sequence-wrap{width:min(92vw,1080px)}
+      body.game-active-layout #question-display.sequence-display .sequence-terms{font-size:clamp(2.5rem,4.6vw,5rem)}
+      body.presentation-mode #question-display.sequence-display .sequence-wrap,body.presentation-mode #rand-question-display.sequence-display .sequence-wrap{width:min(95vw,1320px)}
+      body.presentation-mode #question-display.sequence-display .sequence-terms,body.presentation-mode #rand-question-display.sequence-display .sequence-terms{font-size:clamp(3.2rem,5.8vw,6.3rem)}
+      body.presentation-mode #question-display.sequence-display .sequence-stage,body.presentation-mode #rand-question-display.sequence-display .sequence-stage{padding:1.35rem 1.5rem}
+      .sequence-reveal-wrap{width:min(92vw,1120px)}
+    }
+    @media(max-width:430px){.sequence-choice-btn{padding-left:.3rem!important;padding-right:.3rem!important}.sequence-preview-option{font-size:.84rem;padding-left:.3rem;padding-right:.3rem}}
+
+
+    /* v25 • สัญกรณ์วิทยาศาสตร์ */
+    .scientific-display{white-space:normal!important;overflow:visible!important;line-height:1.18!important;letter-spacing:normal!important}
+    .scientific-wrap{width:min(100%,900px);margin:0 auto;display:grid;gap:.75rem;text-align:center}
+    .scientific-badges{display:flex;justify-content:center;align-items:center;gap:.4rem;flex-wrap:wrap}
+    .scientific-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.34rem .68rem;border-radius:999px;background:#eef2ff;border:1px solid #c7d2fe;color:#4338ca;font-size:.7rem;font-weight:900}
+    .scientific-stage{background:linear-gradient(135deg,#eef2ff,#fff);border:2px solid #c7d2fe;border-radius:1.35rem;padding:1rem .75rem;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)}
+    .scientific-prompt{color:#64748b;font-size:clamp(.82rem,2.7vw,1.02rem);font-weight:850;margin-bottom:.7rem}
+    .scientific-expression{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.45rem;color:#0f172a;font-size:clamp(1.7rem,7vw,3.5rem);font-weight:950;font-variant-numeric:tabular-nums}
+    .scientific-notation{display:inline-flex;align-items:baseline;gap:.18em;white-space:nowrap}
+    .scientific-times{color:#4f46e5}.scientific-power{display:inline-flex;align-items:flex-start;white-space:nowrap}
+    .scientific-power sup{font-size:.80em;line-height:1;position:relative;top:-.10em;margin-left:.05em;font-weight:900}
+    .scientific-normal{font-variant-numeric:tabular-nums;white-space:nowrap}
+    .scientific-options-preview{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+    #rand-question-display .scientific-options-preview{display:grid}
+    .scientific-preview-option{display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:3.3rem;padding:.42rem .45rem;border-radius:.85rem;background:#fff;border:1px solid #c7d2fe;color:#3730a3;font-weight:900;min-width:0}
+    .scientific-choice-value{font-size:clamp(1rem,4.2vw,1.45rem);font-weight:950;min-width:0}
+    #revealed-question:has(.scientific-wrap){width:100%;max-width:none;white-space:normal!important;overflow:visible!important}
+    body.game-active-layout #question-display.scientific-display,body.presentation-mode #question-display.scientific-display,body.randomizer-question-active #rand-question-display.scientific-display,body.presentation-mode #rand-question-display.scientific-display{overflow:visible!important;white-space:normal!important}
+    @media(min-width:700px){body.game-active-layout #question-display.scientific-display .scientific-wrap{width:min(92vw,1050px)}body.game-active-layout #question-display.scientific-display .scientific-expression{font-size:clamp(2.7rem,4.8vw,5.2rem)}body.presentation-mode #question-display.scientific-display .scientific-wrap,body.presentation-mode #rand-question-display.scientific-display .scientific-wrap{width:min(95vw,1250px)}body.presentation-mode #question-display.scientific-display .scientific-expression,body.presentation-mode #rand-question-display.scientific-display .scientific-expression{font-size:clamp(3.5rem,6vw,6.5rem)}}
+    @media(max-width:430px){.scientific-choice-btn{padding-left:.3rem!important;padding-right:.3rem!important}.scientific-choice-value{font-size:.93rem!important}.scientific-preview-option{font-size:.82rem;padding-left:.25rem;padding-right:.25rem}}
+
+
+    /* v26 • ขยายเลขชี้กำลังของสัญกรณ์วิทยาศาสตร์ */
+    .scientific-choice-value .scientific-power sup,
+    .scientific-preview-option .scientific-power sup{
+      font-size:.84em!important;
+      top:-.08em!important;
+      margin-left:.06em!important;
+    }
+    body.presentation-mode .scientific-power sup{
+      font-size:.82em!important;
+      top:-.08em!important;
+    }
+
+
+    /* ====================================================
+       v27 • พีชคณิต • ยกกำลัง • กรณฑ์
+       ==================================================== */
+    .algebra-roots-display{white-space:normal!important;overflow:visible!important;line-height:1.18!important;letter-spacing:normal!important}
+    .algebra-roots-wrap{width:min(100%,940px);margin:0 auto;display:grid;gap:.75rem;text-align:center}
+    .algebra-roots-badges{display:flex;justify-content:center;align-items:center;gap:.4rem;flex-wrap:wrap}
+    .algebra-roots-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.34rem .68rem;border-radius:999px;background:#ecfeff;border:1px solid #a5f3fc;color:#0e7490;font-size:.7rem;font-weight:900}
+    .algebra-roots-stage{background:linear-gradient(135deg,#ecfeff,#fff);border:2px solid #a5f3fc;border-radius:1.35rem;padding:1rem .75rem;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)}
+    .algebra-roots-prompt{color:#64748b;font-size:clamp(.82rem,2.7vw,1.02rem);font-weight:850;margin-bottom:.7rem}
+    .algebra-roots-expression{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.4rem;color:#0f172a;font-size:clamp(1.55rem,6.5vw,3.4rem);font-weight:950;font-variant-numeric:tabular-nums}
+    .algebra-roots-power sup{font-size:.76em;line-height:1;position:relative;top:-.08em;margin-left:.03em}
+    .algebra-roots-factor{white-space:nowrap}
+    .algebra-roots-options-preview{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+    #rand-question-display .algebra-roots-options-preview{display:grid}
+    .algebra-roots-preview-option{display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:3.3rem;padding:.42rem .4rem;border-radius:.85rem;background:#fff;border:1px solid #a5f3fc;color:#155e75;font-weight:900;min-width:0}
+    .algebra-roots-choice-value{font-size:clamp(.92rem,3.8vw,1.35rem);font-weight:950;min-width:0;line-height:1.18}
+    .algebra-roots-choice-value sup,.algebra-roots-preview-option sup{font-size:.76em;position:relative;top:-.06em}
+    .algebra-roots-fraction{display:inline-grid;grid-template-rows:auto auto;vertical-align:middle;line-height:1;min-width:1.6em}
+    .algebra-roots-fraction span:first-child{border-bottom:.08em solid currentColor;padding:0 .12em .08em}
+    .algebra-roots-fraction span:last-child{padding:.08em .12em 0}
+    #revealed-question:has(.algebra-roots-wrap){width:100%;max-width:none;white-space:normal!important;overflow:visible!important}
+    body.game-active-layout #question-display.algebra-roots-display,body.presentation-mode #question-display.algebra-roots-display,body.randomizer-question-active #rand-question-display.algebra-roots-display,body.presentation-mode #rand-question-display.algebra-roots-display{overflow:visible!important;white-space:normal!important}
+    @media(min-width:700px){
+      body.game-active-layout #question-display.algebra-roots-display .algebra-roots-wrap{width:min(92vw,1080px)}
+      body.game-active-layout #question-display.algebra-roots-display .algebra-roots-expression{font-size:clamp(2.4rem,4.5vw,4.8rem)}
+      body.presentation-mode #question-display.algebra-roots-display .algebra-roots-wrap,body.presentation-mode #rand-question-display.algebra-roots-display .algebra-roots-wrap{width:min(95vw,1320px)}
+      body.presentation-mode #question-display.algebra-roots-display .algebra-roots-expression,body.presentation-mode #rand-question-display.algebra-roots-display .algebra-roots-expression{font-size:clamp(3.2rem,5.7vw,6rem)}
+    }
+    @media(max-width:430px){
+      .algebra-roots-choice-btn{padding-left:.25rem!important;padding-right:.25rem!important}
+      .algebra-roots-choice-value{font-size:.84rem!important}
+      .algebra-roots-preview-option{font-size:.78rem;padding-left:.2rem;padding-right:.2rem}
+    }
+
+    /* v28 • หมวดหมู่โหมดใหญ่พีชคณิต */
+    .algebra-category-label{
+      padding:.45rem .65rem .25rem;
+      color:#0e7490;
+      font-size:.72rem;
+      font-weight:900;
+      text-align:left;
+      letter-spacing:.01em;
+    }
+    @media(max-width:430px){
+      .algebra-category-label{font-size:.68rem;padding-left:.45rem}
+      #algebra-roots-submodes .algebra-roots-sub-btn{line-height:1.15}
+    }
+
+
+    /* v30 • พิมพ์ตอบเองเป็นค่าเริ่มต้น */
+    #answer-mode-setting{transition:all .2s ease}
+    .smart-key{background:#fff;border:2px solid #e2e8f0;color:#334155;font-size:1.15rem;font-weight:900;padding:.65rem .15rem;border-radius:.8rem;box-shadow:0 1px 2px rgba(15,23,42,.05);transition:.15s}
+    .smart-key:active{transform:scale(.95)}
+    .smart-key.smart-symbol,.smart-key.smart-extra{background:#ecfeff;border-color:#a5f3fc;color:#0e7490}
+    .smart-key.smart-delete{background:#fff1f2;border-color:#fecdd3;color:#e11d48}
+    .smart-key.smart-wide{font-size:.92rem}
+    .smart-key.smart-hidden{display:none!important}
+    body.presentation-mode #smart-answer-pad .smart-key{font-size:clamp(1.1rem,2vw,1.6rem);padding:.8rem .2rem}
+    @media(max-width:430px){.smart-key{font-size:1rem;padding:.58rem .1rem}.smart-key.smart-wide{font-size:.76rem}}
+
+    /* v36 • จัดโจทย์พีชคณิตให้อยู่กึ่งกลางกล่องในโหมดเต็มจอ */
+    @media (min-width:700px){
+      body.presentation-mode #playing-screen{
+        width:min(96vw,1480px)!important;
+      }
+      body.presentation-mode #question-display.algebra-roots-display .algebra-roots-wrap,
+      body.presentation-mode #rand-question-display.algebra-roots-display .algebra-roots-wrap{
+        width:min(100%,1320px)!important;
+        max-width:100%!important;
+        margin-left:auto!important;
+        margin-right:auto!important;
+      }
+      body.presentation-mode #question-display.algebra-roots-display .algebra-roots-stage,
+      body.presentation-mode #rand-question-display.algebra-roots-display .algebra-roots-stage{
+        width:100%!important;
+        box-sizing:border-box!important;
+      }
+    }
+
+
+    /* ====================================================
+       v38 • ปรับโหมดเต็มจอ + สุ่มชื่อ ให้โจทย์อยู่ในกรอบสมดุล
+       ==================================================== */
+    @media (min-width:700px) {
+      body.presentation-mode.randomizer-question-active #randomizer-inner-root {
+        width:min(1240px,96vw)!important;
+        max-width:min(1240px,96vw)!important;
+      }
+      body.presentation-mode.randomizer-question-active #randomizer-content-body {
+        padding:clamp(.75rem,1.5vw,1.4rem)!important;
+        overflow-x:hidden!important;
+      }
+      body.presentation-mode.randomizer-question-active #randomizer-main-panel {
+        padding:clamp(.8rem,1.7vw,1.6rem)!important;
+        overflow-x:hidden!important;
+      }
+      body.presentation-mode.randomizer-question-active #randomizer-game-card {
+        width:min(100%,1120px)!important;
+        max-width:100%!important;
+        padding:clamp(.7rem,1.5vw,1.35rem)!important;
+        box-sizing:border-box!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-card {
+        width:100%!important;
+        max-width:100%!important;
+        min-height:0!important;
+        padding:clamp(.75rem,1.5vw,1.35rem)!important;
+        box-sizing:border-box!important;
+        overflow:hidden!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-hint {
+        font-size:clamp(.95rem,1.35vw,1.35rem)!important;
+        line-height:1.25!important;
+        white-space:normal!important;
+        overflow-wrap:anywhere!important;
+        margin-bottom:clamp(.4rem,.8vh,.7rem)!important;
+        max-width:100%!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-display {
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+        overflow:hidden!important;
+        box-sizing:border-box!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-display.sequence-display .sequence-wrap {
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
+        box-sizing:border-box!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-display.sequence-display .sequence-stage {
+        width:100%!important;
+        max-width:100%!important;
+        padding:clamp(.75rem,1.4vw,1.15rem)!important;
+        box-sizing:border-box!important;
+        overflow:hidden!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-display.sequence-display .sequence-terms {
+        width:100%!important;
+        max-width:100%!important;
+        font-size:clamp(2rem,4vw,4.6rem)!important;
+        gap:clamp(.18rem,.75vw,.5rem)!important;
+        line-height:1.05!important;
+        flex-wrap:wrap!important;
+        justify-content:center!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-display.sequence-display .sequence-term {
+        min-width:1.05em!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-display.sequence-display .sequence-badges {
+        gap:.3rem!important;
+      }
+      body.presentation-mode.randomizer-question-active #rand-question-display.sequence-display .sequence-badge {
+        font-size:clamp(.68rem,.9vw,.9rem)!important;
+        padding:.28rem .55rem!important;
+      }
+    }
+
+    @media (min-width:700px) and (max-width:1050px) {
+      body.presentation-mode.randomizer-question-active #rand-question-display.sequence-display .sequence-terms {
+        font-size:clamp(1.8rem,4.2vw,3.4rem)!important;
+      }
+      body.presentation-mode.randomizer-question-active #randomizer-result-name {
+        font-size:clamp(1.55rem,3vw,2.5rem)!important;
+      }
+    }
+
+
+    /* v39 • ขยายข้อความวิธีคิดอนุกรม โดยเฉพาะสุ่มชื่อ/เต็มจอ */
+    .sequence-method{
+      font-size:clamp(.98rem,2.9vw,1.18rem);
+      line-height:1.65;
+      padding:1rem 1.15rem;
+    }
+    .sequence-method-title{
+      font-size:1.12em;
+      margin-bottom:.55rem;
+    }
+    .sequence-method-step{
+      margin:.34rem 0;
+    }
+    @media(min-width:700px){
+      body.randomizer-question-active #rand-question-display .sequence-method{
+        font-size:clamp(1.05rem,1.55vw,1.32rem);
+        line-height:1.7;
+        padding:1.05rem 1.25rem;
+      }
+      body.randomizer-question-active #rand-question-display .sequence-method-title{
+        font-size:1.16em;
+      }
+      body.presentation-mode #rand-question-display .sequence-method,
+      body.presentation-mode #question-display .sequence-method{
+        font-size:clamp(1.15rem,1.65vw,1.45rem);
+        line-height:1.72;
+        padding:1.1rem 1.35rem;
+      }
+      body.presentation-mode #rand-question-display .sequence-method-title,
+      body.presentation-mode #question-display .sequence-method-title{
+        font-size:1.18em;
+      }
+    }
+
+
+    /* v42 • สุ่มชื่อ: โหมดปกติต้องเลื่อนดูโจทย์/ตัวเลือก/เฉลยได้ */
+    #randomizer-inner-root{
+      max-height:calc(100dvh - 2rem);
+      min-height:0;
+    }
+    #randomizer-content-body{
+      flex:1 1 auto;
+      min-height:0;
+      overflow-y:auto;
+      overflow-x:hidden;
+      overscroll-behavior:contain;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-gutter:stable;
+    }
+    body.randomizer-question-active:not(.presentation-mode) #randomizer-inner-root{
+      height:min(95dvh,920px);
+      max-height:calc(100dvh - clamp(1.5rem,4vw,4rem));
+    }
+    body.randomizer-question-active:not(.presentation-mode) #randomizer-content-body{
+      overflow-y:auto!important;
+    }
+    @media(max-height:760px){
+      #randomizer-modal-frame{
+        align-items:flex-start!important;
+        padding-top:.75rem!important;
+        padding-bottom:.75rem!important;
+      }
+      #randomizer-inner-root{
+        max-height:calc(100dvh - 1.5rem)!important;
+      }
+    }
+
   </style>
 </head>
 <body class="min-h-screen bg-slate-50 flex items-center justify-center p-4 text-slate-800 selection:bg-indigo-200">
@@ -680,7 +1926,7 @@
             </span>
             <i id="mode-selector-chevron" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
           </button>
-          <div id="mode-selector-menu" class="hidden absolute z-50 mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden p-1.5">
+          <div id="mode-selector-menu" class="hidden absolute z-50 mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-xl p-1.5">
             <button type="button" data-main-mode="math" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-indigo-50 text-left transition-colors">
               <span class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></span>
               <span><span class="block font-bold text-slate-700">โหมดสมการ</span><span class="block text-[11px] text-slate-400">ตัวเลข 3 แบบ / อิโมจิ 4 แบบ</span></span>
@@ -693,10 +1939,59 @@
               <span class="w-9 h-9 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center"><i data-lucide="binary" class="w-5 h-5"></i></span>
               <span><span class="block font-bold text-slate-700">โหมดระบบเลขฐาน</span><span class="block text-[11px] text-slate-400">ฐาน 2 / 5 / 10 / 12</span></span>
             </button>
+            <button type="button" data-main-mode="riddle" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-amber-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center"><i data-lucide="search" class="w-5 h-5"></i></span>
+              <span><span class="block font-bold text-slate-700">เลขอะไรเอ่ย?</span><span class="block text-[11px] text-slate-400">คำใบ้เปลี่ยนทุกครั้ง • มีคำตอบเดียว</span></span>
+            </button>
+            <button type="button" data-main-mode="budget" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-rose-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center"><span class="text-xl leading-none">🛒</span></span>
+              <span><span class="block font-bold text-slate-700">เกมงบประมาณ</span><span class="block text-[11px] text-slate-400">💰 ซื้อของ • เงินทอน • วางแผนงบ • อิโมจิ</span></span>
+            </button>
+            <button type="button" data-main-mode="emojiPuzzle" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-orange-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center"><span class="text-xl leading-none">🧩</span></span>
+              <span><span class="block font-bold text-slate-700">เกมถอดรหัสอิโมจิ</span><span class="block text-[11px] text-slate-400">🧩 สมการปริศนาแบบผลไม้ • เปลี่ยนธีมทุกข้อ</span></span>
+            </button>
+            <button type="button" data-main-mode="clock" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-sky-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center"><span class="text-xl leading-none">⏰</span></span>
+              <span><span class="block font-bold text-slate-700">นาฬิกาปริศนา</span><span class="block text-[11px] text-slate-400">⏰ บวก–ลบเวลา • ระยะเวลา • สถานการณ์ชีวิตจริง</span></span>
+            </button>
+            <button type="button" data-main-mode="flash" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-violet-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center"><span class="text-xl leading-none">⚡</span></span>
+              <span><span class="block font-bold text-slate-700">Flash Math</span><span class="block text-[11px] text-slate-400">⚡ คิดในใจต่อเนื่อง • โจทย์โผล่ทีละขั้นแล้วหายไป</span></span>
+            </button>
+            <button type="button" data-main-mode="memoryNumbers" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-teal-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center"><span class="text-xl leading-none">🧠</span></span>
+              <span><span class="block font-bold text-slate-700">จำตัวเลข</span><span class="block text-[11px] text-slate-400">🧠 จำชุดตัวเลขก่อนหาย • แล้วตอบคำถามจากความจำ</span></span>
+            </button>
+            <button type="button" data-main-mode="fraction" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-blue-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center"><span class="text-xl leading-none">🍕</span></span>
+              <span><span class="block font-bold text-slate-700">เกมเศษส่วน</span><span class="block text-[11px] text-slate-400">➕ ➖ ✖️ ➗ • เปรียบเทียบ • เรียงลำดับ • เศษส่วนเท่ากัน</span></span>
+            </button>
+            <button type="button" data-main-mode="operatorGap" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-lime-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-lime-100 text-lime-600 flex items-center justify-center"><span class="text-xl leading-none">🎯</span></span>
+              <span><span class="block font-bold text-slate-700">ใส่เครื่องหมายให้ถูก</span><span class="block text-[11px] text-slate-400">เติม + − × ÷ ลงในช่องว่างให้สมการถูกต้อง</span></span>
+            </button>
+            <button type="button" data-main-mode="sequence" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-fuchsia-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-fuchsia-100 text-fuchsia-600 flex items-center justify-center"><span class="text-xl leading-none">🔢</span></span>
+              <span><span class="block font-bold text-slate-700">เกมอนุกรม</span><span class="block text-[11px] text-slate-400">หาพจน์ถัดไป • กฎหลายชั้น • สลับชุด • เศษส่วน • มีวิธีคิดตอนเฉลย</span></span>
+            </button>
+            <button type="button" data-main-mode="algebraRoots" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-cyan-50 text-left transition-colors">
+              <span class="w-9 h-9 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center"><span class="text-xl leading-none">🧮</span></span>
+              <span><span class="block font-bold text-slate-700">พีชคณิต</span><span class="block text-[11px] text-slate-400">พหุนามและสมการ • เลขยกกำลังและสัญกรณ์วิทยาศาสตร์ • รากและกรณฑ์</span></span>
+            </button>
             <button type="button" data-main-mode="roman" class="main-mode-option w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-purple-50 text-left transition-colors">
               <span class="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center"><i data-lucide="landmark" class="w-5 h-5"></i></span>
               <span><span class="block font-bold text-slate-700">โหมดเลขโรมัน</span><span class="block text-[11px] text-slate-400">อารบิค ↔ โรมัน</span></span>
             </button>
+            <span class="hidden bg-amber-500 bg-amber-600 bg-amber-700 hover:bg-amber-700 text-amber-600 text-amber-700 border-amber-200 focus:border-amber-500 shadow-amber-200 bg-amber-100"></span>
+            <span class="hidden bg-rose-50 bg-rose-100 bg-rose-500 bg-rose-600 bg-rose-700 hover:bg-rose-600 hover:bg-rose-700 text-rose-600 text-rose-700 text-rose-800 border-rose-200 border-rose-300 focus:border-rose-500 shadow-rose-100 shadow-rose-200"></span>
+            <span class="hidden bg-orange-50 bg-orange-100 bg-orange-500 bg-orange-600 bg-orange-700 hover:bg-orange-600 hover:bg-orange-700 text-orange-600 text-orange-700 text-orange-800 border-orange-200 border-orange-300 focus:border-orange-500 shadow-orange-100 shadow-orange-200"></span>
+            <span class="hidden bg-sky-50 bg-sky-100 bg-sky-500 bg-sky-600 bg-sky-700 hover:bg-sky-600 hover:bg-sky-700 text-sky-600 text-sky-700 text-sky-800 border-sky-200 border-sky-300 focus:border-sky-500 shadow-sky-100 shadow-sky-200"></span>
+            <span class="hidden bg-violet-50 bg-violet-100 bg-violet-500 bg-violet-600 bg-violet-700 hover:bg-violet-600 hover:bg-violet-700 text-violet-600 text-violet-700 text-violet-800 border-violet-200 border-violet-300 focus:border-violet-500 shadow-violet-100 shadow-violet-200"></span>
+            <span class="hidden bg-teal-50 bg-teal-100 bg-teal-500 bg-teal-600 bg-teal-700 hover:bg-teal-600 hover:bg-teal-700 text-teal-600 text-teal-700 text-teal-800 border-teal-200 border-teal-300 focus:border-teal-500 shadow-teal-100 shadow-teal-200"></span>
+            <span class="hidden bg-blue-50 bg-blue-100 bg-blue-500 bg-blue-600 bg-blue-700 hover:bg-blue-600 hover:bg-blue-700 text-blue-600 text-blue-700 text-blue-800 border-blue-200 border-blue-300 focus:border-blue-500 shadow-blue-100 shadow-blue-200"></span>
+            <span class="hidden bg-lime-50 bg-lime-100 bg-lime-500 bg-lime-600 bg-lime-700 hover:bg-lime-600 hover:bg-lime-700 text-lime-600 text-lime-700 text-lime-800 border-lime-200 border-lime-300 focus:border-lime-500 shadow-lime-100 shadow-lime-200"></span>
+            <span class="hidden bg-fuchsia-50 bg-fuchsia-100 bg-fuchsia-500 bg-fuchsia-600 bg-fuchsia-700 hover:bg-fuchsia-600 hover:bg-fuchsia-700 text-fuchsia-600 text-fuchsia-700 text-fuchsia-800 border-fuchsia-200 border-fuchsia-300 focus:border-fuchsia-500 shadow-fuchsia-100 shadow-fuchsia-200"></span>
           </div>
         </div>
 
@@ -722,9 +2017,15 @@
         </div>
 
         <!-- ตัวเลือกย่อย โหมดคิดเลขเร็ว -->
-        <div id="fast-submodes" class="hidden flex p-1 space-x-1 bg-slate-100 rounded-xl mb-4 border border-slate-200">
+        <div id="fast-submodes" class="hidden flex p-1 space-x-1 bg-slate-100 rounded-xl mb-2 border border-slate-200">
           <button data-mode="game24" class="fast-sub-btn w-1/2 py-2.5 text-xs sm:text-sm font-bold rounded-lg bg-white shadow-sm text-emerald-600 border border-slate-200 transition-all">เกม 24</button>
           <button data-mode="target2" class="fast-sub-btn w-1/2 py-2.5 text-xs sm:text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">4 ตัว → 2 หลัก</button>
+        </div>
+
+        <!-- รูปแบบย่อยของคิดเลขเร็ว 4 ตัว → ผลลัพธ์ 2 หลัก -->
+        <div id="fast-target2-types" class="hidden grid grid-cols-2 gap-1.5 bg-emerald-50 rounded-xl mb-4 border border-emerald-200 p-1.5">
+          <button data-mode="basic" class="fast-target2-type-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-emerald-700 border border-emerald-200 transition-all">+ − × ÷</button>
+          <button data-mode="special" class="fast-target2-type-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">+ − × ÷ • √ • ยกกำลัง</button>
         </div>
 
         <!-- ตัวเลือกย่อย โหมดระบบเลขฐาน -->
@@ -735,6 +2036,109 @@
           <button data-mode="2to10" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 2 ➔ ฐาน 10</button>
           <button data-mode="10to12" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 10 ➔ ฐาน 12</button>
           <button data-mode="12to10" class="base-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ฐาน 12 ➔ ฐาน 10</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย เกมงบประมาณ -->
+        <div id="budget-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="mixed" class="budget-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-rose-600 border border-slate-200 transition-all">🎲 สุ่มทุกแบบ</button>
+          <button data-mode="cashier" class="budget-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🧾 คิดเงินเร็ว</button>
+          <button data-mode="cart" class="budget-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🛒 เลือกตะกร้า</button>
+          <button data-mode="strategy" class="budget-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🧠 วางแผนงบ</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย เกมนาฬิกาปริศนา -->
+        <div id="clock-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="mixed" class="clock-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-sky-600 border border-slate-200 transition-all">🎲 สุ่มทุกแบบ</button>
+          <button data-mode="calc" class="clock-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">➕ บวก–ลบเวลา</button>
+          <button data-mode="duration" class="clock-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">⏱️ หาระยะเวลา</button>
+          <button data-mode="story" class="clock-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🎭 สถานการณ์</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย Flash Math -->
+        <div id="flash-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="mixed" class="flash-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-violet-600 border border-slate-200 transition-all">🎲 สุ่มทุกแบบ</button>
+          <button data-mode="normal" class="flash-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">⚡ Flash ปกติ</button>
+          <button data-mode="continuous" class="flash-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🔥 ต่อเนื่อง</button>
+          <button data-mode="memory" class="flash-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🧠 Memory Flash</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย เกมจำตัวเลข -->
+        <div id="memory-numbers-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="mixed" class="memory-numbers-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-teal-600 border border-slate-200 transition-all">🎲 สุ่มทุกแบบ</button>
+          <button data-mode="position" class="memory-numbers-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">👁️ จำตำแหน่ง</button>
+          <button data-mode="analyze" class="memory-numbers-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🔎 วิเคราะห์จากความจำ</button>
+          <button data-mode="challenge" class="memory-numbers-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🔥 ท้าทายความจำ</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย เกมเศษส่วน -->
+        <div id="fraction-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="add" class="fraction-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-blue-600 border border-slate-200 transition-all">➕ การบวก</button>
+          <button data-mode="subtract" class="fraction-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">➖ การลบ</button>
+          <button data-mode="multiply" class="fraction-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">✖️ การคูณ</button>
+          <button data-mode="divide" class="fraction-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">➗ การหาร</button>
+          <button data-mode="compare" class="fraction-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">⚡ เปรียบเทียบอย่างเร็ว</button>
+          <button data-mode="order" class="fraction-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">↕️ เรียงลำดับ</button>
+          <button data-mode="equivalent" class="fraction-sub-btn col-span-2 py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🧩 สร้างเศษส่วนเท่ากัน</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย เกมใส่เครื่องหมายให้ถูก -->
+        <div id="operator-gap-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="mixed" class="operator-gap-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-lime-700 border border-slate-200 transition-all">🎲 สุ่มทุกแบบ</button>
+          <button data-mode="one" class="operator-gap-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🟢 1 ช่อง</button>
+          <button data-mode="two" class="operator-gap-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🔵 2 ช่อง</button>
+          <button data-mode="three" class="operator-gap-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🟠 3 ช่อง</button>
+          <button data-mode="brackets" class="operator-gap-sub-btn col-span-2 py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🧠 Challenge • มีวงเล็บ</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย เกมอนุกรม -->
+        <div id="sequence-submodes" class="hidden grid grid-cols-2 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="mixed" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-fuchsia-700 border border-slate-200 transition-all">🎲 สุ่มทุกแบบ</button>
+          <button data-mode="basic" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🟢 พื้นฐาน</button>
+          <button data-mode="difference" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">📈 ผลต่าง</button>
+          <button data-mode="interleave" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🔀 สลับ / แยกชุด</button>
+          <button data-mode="recurrence" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">🔗 หลายพจน์ก่อนหน้า</button>
+          <button data-mode="mixedops" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">⚙️ กฎผสม</button>
+          <button data-mode="fraction" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">➗ เศษส่วน</button>
+          <button data-mode="expert" class="sequence-sub-btn py-2.5 px-2 text-[11px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">👑 เซียนอนุกรม</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย สัญกรณ์วิทยาศาสตร์ -->
+        <div id="scientific-submodes" class="hidden grid grid-cols-3 gap-1.5 bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5">
+          <button data-mode="mixed" class="scientific-sub-btn py-2.5 px-1 text-[10px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-indigo-700 border border-slate-200 transition-all">🎲 สุ่มผสม</button>
+          <button data-mode="sciToNormal" class="scientific-sub-btn py-2.5 px-1 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">10ⁿ → ปกติ</button>
+          <button data-mode="normalToSci" class="scientific-sub-btn py-2.5 px-1 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">ปกติ → 10ⁿ</button>
+        </div>
+
+        <!-- ตัวเลือกย่อย โหมดใหญ่พีชคณิต -->
+        <div id="algebra-roots-submodes" class="hidden bg-slate-100 rounded-xl mb-4 border border-slate-200 p-1.5 space-y-1.5">
+          <button data-mode="mixed" class="algebra-roots-sub-btn w-full py-2.5 px-2 text-[10px] sm:text-xs font-bold rounded-lg bg-white shadow-sm text-cyan-700 border border-slate-200 transition-all">🎲 สุ่มทั้งหมด</button>
+
+          <div class="algebra-category-label">🧩 พหุนามและสมการ</div>
+          <div class="grid grid-cols-2 gap-1.5">
+            <button data-mode="polyMultiply" class="algebra-roots-sub-btn col-span-2 py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">✖️ การคูณพหุนาม</button>
+            <button data-mode="factor2" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">แยกตัวประกอบ ดีกรี 2</button>
+            <button data-mode="factor3" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">A³ ± B³</button>
+            <button data-mode="quadratic" class="algebra-roots-sub-btn col-span-2 py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">แก้สมการกำลังสอง</button>
+          </div>
+
+          <div class="algebra-category-label">🔢 เลขยกกำลังและสัญกรณ์วิทยาศาสตร์</div>
+          <div class="grid grid-cols-2 gap-1.5">
+            <button data-mode="exponent" class="algebra-roots-sub-btn col-span-2 py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">xⁿ เลขยกกำลัง</button>
+            <button data-mode="sciToNormal" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">10ⁿ → เลขปกติ</button>
+            <button data-mode="normalToSci" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">เลขปกติ → 10ⁿ</button>
+          </div>
+
+          <div class="algebra-category-label">√ รากและกรณฑ์</div>
+          <div class="grid grid-cols-2 gap-1.5">
+            <button data-mode="roots" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">± รากที่สอง</button>
+            <button data-mode="sqrtRadical" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">√ กรณฑ์ที่สอง</button>
+            <button data-mode="cubeRadical" class="algebra-roots-sub-btn col-span-2 py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">∛ รากที่สาม / กรณฑ์ที่สาม</button>
+            <button data-mode="sqrtAdd" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">➕ บวกกรณฑ์ที่สอง</button>
+            <button data-mode="sqrtSub" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">➖ ลบกรณฑ์ที่สอง</button>
+            <button data-mode="sqrtMul" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">✖️ คูณกรณฑ์ที่สอง</button>
+            <button data-mode="sqrtDiv" class="algebra-roots-sub-btn py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">➗ หารกรณฑ์ที่สอง</button>
+            <button data-mode="cubeRadicalOps" class="algebra-roots-sub-btn col-span-2 py-2.5 px-2 text-[10px] sm:text-xs font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">∛ ➕➖✖️➗ กรณฑ์ที่สาม</button>
+          </div>
         </div>
 
         <!-- ตัวเลือกย่อย โหมดเลขโรมัน -->
@@ -755,6 +2159,70 @@
           <div class="text-[11px] font-bold text-cyan-700 mb-1">กติกาสัญลักษณ์</div>
           <div class="text-sm sm:text-base font-bold text-slate-700">ฐาน 2 ใช้ 0–1 · ฐาน 5 ใช้ 0–4 · ฐาน 12 ใช้ A=10, B=11</div>
           <span class="hidden bg-cyan-500 bg-cyan-600 bg-cyan-700 hover:bg-cyan-700 text-cyan-600 text-cyan-800 border-cyan-200 focus:border-cyan-500 bg-cyan-100 shadow-cyan-200"></span>
+        </div>
+
+        <!-- ข้อมูลเกมงบประมาณ -->
+        <div id="budget-key" class="hidden mb-4 bg-rose-50 border border-rose-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-rose-700 mb-1">🛍️ ตลาดคณิตศาสตร์</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">สินค้าและราคาสุ่มใหม่ทุกข้อ • 18 รูปแบบโจทย์ • ใช้อิโมจิแทนสินค้า • ตัวเลือก ①–④ ในโจทย์ตะกร้า</div>
+        </div>
+
+        <!-- ข้อมูลเกมนาฬิกาปริศนา -->
+        <div id="clock-key" class="hidden mb-4 bg-sky-50 border border-sky-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-sky-700 mb-1">⏰ นาฬิกาปริศนา</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">20+ รูปแบบโจทย์ • เวลา 24 ชั่วโมง • มีทั้งข้ามชั่วโมง ข้ามเที่ยง และข้ามวัน • เลือกตอบ ①–④</div>
+        </div>
+
+        <!-- ข้อมูล Flash Math -->
+        <div id="flash-key" class="hidden mb-4 bg-violet-50 border border-violet-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-violet-700 mb-1">⚡ Flash Math</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">จำและคำนวณในใจทีละขั้น • + − × ÷ • การหารลงตัวทุกครั้ง • เริ่มจับเวลาหลังแสดงโจทย์ครบ</div>
+        </div>
+
+        <!-- ข้อมูลเกมจำตัวเลข -->
+        <div id="memory-numbers-key" class="hidden mb-4 bg-teal-50 border border-teal-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-teal-700 mb-1">🧠 เกม 66 • จำตัวเลข</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">ตัวเลขจะให้จำแล้วหายไป • จากนั้นจึงถามตำแหน่ง ผลรวม มาก/น้อย จำนวนคู่–คี่ และโจทย์ความจำอีกหลายแบบ • เริ่มจับเวลาหลังตัวเลขหาย</div>
+        </div>
+
+        <!-- ข้อมูลเกมเศษส่วน -->
+        <div id="fraction-key" class="hidden mb-4 bg-blue-50 border border-blue-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-blue-700 mb-1">🍕 เกมเศษส่วน</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">7 เกม • เศษส่วนแสดงแบบบน–ล่าง • คำตอบการคำนวณย่อเป็นอย่างต่ำ • เลือกตอบจากตัวเลือก</div>
+        </div>
+
+        <!-- ข้อมูลเกมใส่เครื่องหมาย -->
+        <div id="operator-gap-key" class="hidden mb-4 bg-lime-50 border border-lime-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-lime-700 mb-1">🎯 ใส่เครื่องหมายให้ถูก</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">แตะช่อง □ ที่ต้องการ แล้วเลือก + − × ÷ • ทุกข้อผ่านการตรวจว่ามีชุดเครื่องหมายที่ถูกเพียงชุดเดียว</div>
+        </div>
+
+        <!-- วิธีตอบ: ใช้กับเกมอนุกรมและโหมดพีชคณิต -->
+        <div id="answer-mode-setting" class="hidden mb-4 bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
+          <div class="text-xs font-bold text-slate-600 mb-2 text-center">วิธีตอบ</div>
+          <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-xl">
+            <button type="button" data-answer-mode="direct" class="answer-mode-btn py-2.5 px-2 rounded-lg bg-white shadow-sm border border-slate-200 text-cyan-700 font-bold text-xs sm:text-sm">⌨️ พิมพ์ตอบเอง</button>
+            <button type="button" data-answer-mode="choice" class="answer-mode-btn py-2.5 px-2 rounded-lg text-slate-500 font-medium text-xs sm:text-sm">① ตัวเลือก</button>
+          </div>
+          <div class="mt-2 text-[10px] sm:text-[11px] text-slate-400 text-center">ค่าเริ่มต้นเป็น “พิมพ์ตอบเอง” • เปลี่ยนเป็นตัวเลือกได้ทุกเมื่อก่อนเริ่มเกม</div>
+        </div>
+
+        <!-- ข้อมูลเกมอนุกรม -->
+        <div id="sequence-key" class="hidden mb-4 bg-fuchsia-50 border border-fuchsia-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-fuchsia-700 mb-1">🔢 เกมอนุกรม</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">สุ่มกฎหลายสิบตระกูล • พิมพ์คำตอบเองเป็นค่าเริ่มต้น • เลือกใช้ตัวเลือกได้ • ตอนเฉลยแสดงวิธีคิดทุกข้อ</div>
+        </div>
+
+        <!-- ข้อมูลสัญกรณ์วิทยาศาสตร์ -->
+        <div id="scientific-key" class="hidden mb-4 bg-indigo-50 border border-indigo-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-indigo-700 mb-1">🔬 สัญกรณ์วิทยาศาสตร์</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">แปลงไป–กลับระหว่างเลขปกติและ a × 10ⁿ • มีเลขชี้กำลังบวก ศูนย์ และลบ • เลือกตอบ ①–④</div>
+        </div>
+
+        <!-- ข้อมูลพีชคณิต • ยกกำลัง • กรณฑ์ -->
+        <div id="algebra-roots-key" class="hidden mb-4 bg-cyan-50 border border-cyan-200 rounded-2xl px-3 py-3 text-center">
+          <div class="text-[11px] font-bold text-cyan-700 mb-1">🧮 โหมดใหญ่พีชคณิต</div>
+          <div class="text-sm sm:text-base font-bold text-slate-700">รากที่สองมี 2 ค่า ± • √ หมายถึงรากหลักที่ไม่เป็นลบ • รากที่สามและ ∛ เป็นค่าเดียวกันในจำนวนจริง</div>
         </div>
 
         <!-- ตั้งค่าระบบเวลา -->
@@ -837,6 +2305,18 @@
            <div id="question-display" class="text-4xl sm:text-5xl tracking-wider font-black text-slate-800 text-center whitespace-nowrap overflow-hidden w-full px-2 drop-shadow-sm" style="text-overflow: clip;">
              1 + 2 × 3 - 4
            </div>
+
+           <!-- ใช้เฉพาะเกม "เลขอะไรเอ่ย?" -->
+           <div id="riddle-clue-controls" class="hidden mt-4 w-full max-w-2xl">
+             <div class="flex items-center justify-center gap-2 flex-wrap">
+               <span id="riddle-clue-counter" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs sm:text-sm font-bold">
+                 <i data-lucide="lightbulb" class="w-4 h-4"></i> คำใบ้ 1/5
+               </span>
+               <button id="btn-next-riddle-clue" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-sm active:scale-95 transition-all">
+                 <i data-lucide="eye" class="w-4 h-4"></i> เปิดคำใบ้ต่อไป
+               </button>
+             </div>
+           </div>
         </div>
 
         <!-- ช่องแสดงคำตอบ -->
@@ -901,31 +2381,119 @@
             </button>
           </div>
 
-          <!-- แป้นพิมพ์โหมดคิดเลขเร็ว: พิมพ์วิธีทำโดยใช้ตัวเลขทั้ง 4 ตัว -->
+          <!-- แป้นพิมพ์โหมดคิดเลขเร็ว: แสดงเฉพาะเลขโจทย์ 4 ตัว -->
           <div id="fast-pad" class="hidden">
-            <div class="grid grid-cols-6 gap-2 mb-2">
-              <button data-fast-val="1" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">1</button>
-              <button data-fast-val="2" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">2</button>
-              <button data-fast-val="3" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">3</button>
-              <button data-fast-val="4" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">4</button>
-              <button data-fast-val="5" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">5</button>
-              <button data-fast-val="6" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">6</button>
-              <button data-fast-val="7" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">7</button>
-              <button data-fast-val="8" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">8</button>
-              <button data-fast-val="9" class="fastpad-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">9</button>
-              <button data-fast-val="(" class="fastpad-btn bg-slate-100 border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">(</button>
-              <button data-fast-val=")" class="fastpad-btn bg-slate-100 border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">)</button>
-              <button data-fast-val="del" class="fastpad-btn bg-rose-50 border-2 border-rose-200 text-slate-600 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all flex items-center justify-center"><i data-lucide="delete" class="w-5 h-5"></i></button>
+            <!-- บรรทัด 1: เลขที่กำหนด 4 ตัว + กากบาทลบด้านขวาสุด -->
+            <div id="fast-digit-row" class="grid grid-cols-5 gap-2 mb-2">
+              <button data-fast-digit-slot="0" data-fast-val="" class="fastpad-btn fast-digit-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">?</button>
+              <button data-fast-digit-slot="1" data-fast-val="" class="fastpad-btn fast-digit-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">?</button>
+              <button data-fast-digit-slot="2" data-fast-val="" class="fastpad-btn fast-digit-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">?</button>
+              <button data-fast-digit-slot="3" data-fast-val="" class="fastpad-btn fast-digit-btn bg-white border-2 border-slate-200 text-xl font-bold text-slate-700 py-2.5 rounded-xl shadow-sm hover:border-emerald-300 active:scale-95 transition-all">?</button>
+              <button data-fast-val="del" title="ลบตัวล่าสุด" class="fastpad-btn bg-rose-50 border-2 border-rose-200 text-rose-600 text-2xl font-black py-2.5 rounded-xl shadow-sm hover:bg-rose-100 active:scale-95 transition-all flex items-center justify-center">✕</button>
             </div>
-            <div class="grid grid-cols-4 gap-2 mb-2">
+
+            <!-- บรรทัด 2: + − × ÷ ( ) -->
+            <div class="grid grid-cols-6 gap-2 mb-2">
               <button data-fast-val="+" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">+</button>
               <button data-fast-val="-" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">−</button>
               <button data-fast-val="*" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">×</button>
               <button data-fast-val="/" class="fastpad-btn bg-emerald-50 border-2 border-emerald-200 text-2xl font-black text-emerald-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">÷</button>
+              <button data-fast-val="(" class="fastpad-btn bg-slate-100 border-2 border-slate-200 text-xl font-black text-slate-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">(</button>
+              <button data-fast-val=")" class="fastpad-btn bg-slate-100 border-2 border-slate-200 text-xl font-black text-slate-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">)</button>
             </div>
+
+            <!-- บรรทัด 3: แสดงเฉพาะแบบพิเศษ -->
+            <div id="fast-special-ops" class="hidden grid grid-cols-2 gap-2 mb-2">
+              <button data-fast-val="√" class="fastpad-btn bg-violet-50 border-2 border-violet-200 text-2xl font-black text-violet-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">√</button>
+              <button data-fast-val="^" class="fastpad-btn bg-violet-50 border-2 border-violet-200 text-xl font-black text-violet-700 py-2.5 rounded-xl shadow-sm active:scale-95 transition-all">xʸ</button>
+            </div>
+
+            <!-- บรรทัด 4: ล้าง / ตรวจคำตอบ -->
             <div class="flex gap-2">
               <button id="btn-clear-fast" type="button" class="w-1/3 bg-white border-2 border-slate-200 text-slate-500 font-bold py-3 rounded-xl active:scale-95 transition-all">ล้าง</button>
               <button id="btn-check-fast" type="button" class="w-2/3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-md shadow-emerald-100 active:scale-95 transition-all flex items-center justify-center gap-2"><i data-lucide="check" class="w-5 h-5"></i> ตรวจคำตอบ</button>
+            </div>
+          </div>
+
+          <!-- แป้นเลือกคำตอบสำหรับเกมงบประมาณ -->
+          <div id="budget-choice-pad" class="hidden grid grid-cols-2 gap-2">
+            <button data-budget-choice="1" class="budget-choice-btn bg-white border-2 border-rose-200 text-rose-700 py-4 rounded-2xl shadow-sm hover:bg-rose-50 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">①</span></button>
+            <button data-budget-choice="2" class="budget-choice-btn bg-white border-2 border-rose-200 text-rose-700 py-4 rounded-2xl shadow-sm hover:bg-rose-50 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">②</span></button>
+            <button data-budget-choice="3" class="budget-choice-btn bg-white border-2 border-rose-200 text-rose-700 py-4 rounded-2xl shadow-sm hover:bg-rose-50 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">③</span></button>
+            <button data-budget-choice="4" class="budget-choice-btn bg-white border-2 border-rose-200 text-rose-700 py-4 rounded-2xl shadow-sm hover:bg-rose-50 hover:border-rose-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">④</span></button>
+          </div>
+
+          <!-- แป้นเลือกคำตอบสำหรับเกมนาฬิกาปริศนา -->
+          <div id="clock-choice-pad" class="hidden grid grid-cols-2 gap-2">
+            <button data-clock-choice="1" class="clock-choice-btn bg-white border-2 border-sky-200 text-sky-700 py-4 rounded-2xl shadow-sm hover:bg-sky-50 hover:border-sky-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">①</span></button>
+            <button data-clock-choice="2" class="clock-choice-btn bg-white border-2 border-sky-200 text-sky-700 py-4 rounded-2xl shadow-sm hover:bg-sky-50 hover:border-sky-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">②</span></button>
+            <button data-clock-choice="3" class="clock-choice-btn bg-white border-2 border-sky-200 text-sky-700 py-4 rounded-2xl shadow-sm hover:bg-sky-50 hover:border-sky-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">③</span></button>
+            <button data-clock-choice="4" class="clock-choice-btn bg-white border-2 border-sky-200 text-sky-700 py-4 rounded-2xl shadow-sm hover:bg-sky-50 hover:border-sky-300 active:scale-95 transition-all flex items-center justify-center gap-2"><span class="text-3xl sm:text-4xl">④</span></button>
+          </div>
+
+          <!-- แป้นเลือกคำตอบสำหรับเกมเศษส่วน -->
+          <div id="fraction-choice-pad" class="hidden grid grid-cols-2 gap-2">
+            <button data-fraction-choice="1" class="fraction-choice-btn bg-white border-2 border-blue-200 text-blue-700 py-3 rounded-2xl shadow-sm hover:bg-blue-50 hover:border-blue-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+            <button data-fraction-choice="2" class="fraction-choice-btn bg-white border-2 border-blue-200 text-blue-700 py-3 rounded-2xl shadow-sm hover:bg-blue-50 hover:border-blue-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+            <button data-fraction-choice="3" class="fraction-choice-btn bg-white border-2 border-blue-200 text-blue-700 py-3 rounded-2xl shadow-sm hover:bg-blue-50 hover:border-blue-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+            <button data-fraction-choice="4" class="fraction-choice-btn bg-white border-2 border-blue-200 text-blue-700 py-3 rounded-2xl shadow-sm hover:bg-blue-50 hover:border-blue-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+          </div>
+
+          <!-- แป้นเกมใส่เครื่องหมายให้ถูก -->
+          <div id="operator-gap-pad" class="hidden">
+            <div class="grid grid-cols-4 gap-2 mb-2">
+              <button data-operator-gap-op="+" class="operator-gap-op-btn bg-lime-50 border-2 border-lime-200 text-lime-700 text-3xl font-black py-3 rounded-2xl shadow-sm hover:bg-lime-100 active:scale-95 transition-all">+</button>
+              <button data-operator-gap-op="-" class="operator-gap-op-btn bg-lime-50 border-2 border-lime-200 text-lime-700 text-3xl font-black py-3 rounded-2xl shadow-sm hover:bg-lime-100 active:scale-95 transition-all">−</button>
+              <button data-operator-gap-op="*" class="operator-gap-op-btn bg-lime-50 border-2 border-lime-200 text-lime-700 text-3xl font-black py-3 rounded-2xl shadow-sm hover:bg-lime-100 active:scale-95 transition-all">×</button>
+              <button data-operator-gap-op="/" class="operator-gap-op-btn bg-lime-50 border-2 border-lime-200 text-lime-700 text-3xl font-black py-3 rounded-2xl shadow-sm hover:bg-lime-100 active:scale-95 transition-all">÷</button>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <button id="btn-operator-gap-undo" type="button" class="bg-white border-2 border-slate-200 text-slate-500 font-bold py-3 rounded-xl active:scale-95 transition-all">↶ ย้อนกลับ</button>
+              <button id="btn-operator-gap-clear" type="button" class="bg-white border-2 border-slate-200 text-slate-500 font-bold py-3 rounded-xl active:scale-95 transition-all">ล้าง</button>
+              <button id="btn-operator-gap-check" type="button" class="bg-lime-600 hover:bg-lime-700 text-white font-bold py-3 rounded-xl shadow-md shadow-lime-100 active:scale-95 transition-all">✓ ตรวจ</button>
+            </div>
+          </div>
+
+          <!-- แป้นเลือกคำตอบเกมอนุกรม -->
+          <div id="sequence-choice-pad" class="hidden grid grid-cols-2 gap-2">
+            <button data-sequence-choice="1" class="sequence-choice-btn bg-white border-2 border-fuchsia-200 text-fuchsia-700 py-3 rounded-2xl shadow-sm hover:bg-fuchsia-50 hover:border-fuchsia-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.4rem]"></button>
+            <button data-sequence-choice="2" class="sequence-choice-btn bg-white border-2 border-fuchsia-200 text-fuchsia-700 py-3 rounded-2xl shadow-sm hover:bg-fuchsia-50 hover:border-fuchsia-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.4rem]"></button>
+            <button data-sequence-choice="3" class="sequence-choice-btn bg-white border-2 border-fuchsia-200 text-fuchsia-700 py-3 rounded-2xl shadow-sm hover:bg-fuchsia-50 hover:border-fuchsia-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.4rem]"></button>
+            <button data-sequence-choice="4" class="sequence-choice-btn bg-white border-2 border-fuchsia-200 text-fuchsia-700 py-3 rounded-2xl shadow-sm hover:bg-fuchsia-50 hover:border-fuchsia-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.4rem]"></button>
+          </div>
+
+          <!-- แป้นเลือกคำตอบสัญกรณ์วิทยาศาสตร์ -->
+          <div id="scientific-choice-pad" class="hidden grid grid-cols-2 gap-2">
+            <button data-scientific-choice="1" class="scientific-choice-btn bg-white border-2 border-indigo-200 text-indigo-700 py-3 px-2 rounded-2xl shadow-sm hover:bg-indigo-50 hover:border-indigo-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+            <button data-scientific-choice="2" class="scientific-choice-btn bg-white border-2 border-indigo-200 text-indigo-700 py-3 px-2 rounded-2xl shadow-sm hover:bg-indigo-50 hover:border-indigo-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+            <button data-scientific-choice="3" class="scientific-choice-btn bg-white border-2 border-indigo-200 text-indigo-700 py-3 px-2 rounded-2xl shadow-sm hover:bg-indigo-50 hover:border-indigo-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+            <button data-scientific-choice="4" class="scientific-choice-btn bg-white border-2 border-indigo-200 text-indigo-700 py-3 px-2 rounded-2xl shadow-sm hover:bg-indigo-50 hover:border-indigo-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.6rem]"></button>
+          </div>
+
+          <!-- แป้นเลือกคำตอบพีชคณิต • ยกกำลัง • กรณฑ์ -->
+          <div id="algebra-roots-choice-pad" class="hidden grid grid-cols-2 gap-2">
+            <button data-algebra-roots-choice="1" class="algebra-roots-choice-btn bg-white border-2 border-cyan-200 text-cyan-800 py-3 px-2 rounded-2xl shadow-sm hover:bg-cyan-50 hover:border-cyan-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.8rem]"></button>
+            <button data-algebra-roots-choice="2" class="algebra-roots-choice-btn bg-white border-2 border-cyan-200 text-cyan-800 py-3 px-2 rounded-2xl shadow-sm hover:bg-cyan-50 hover:border-cyan-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.8rem]"></button>
+            <button data-algebra-roots-choice="3" class="algebra-roots-choice-btn bg-white border-2 border-cyan-200 text-cyan-800 py-3 px-2 rounded-2xl shadow-sm hover:bg-cyan-50 hover:border-cyan-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.8rem]"></button>
+            <button data-algebra-roots-choice="4" class="algebra-roots-choice-btn bg-white border-2 border-cyan-200 text-cyan-800 py-3 px-2 rounded-2xl shadow-sm hover:bg-cyan-50 hover:border-cyan-300 active:scale-95 transition-all flex items-center justify-center gap-2 min-h-[4.8rem]"></button>
+          </div>
+
+          <!-- แป้นพิมพ์คำตอบคณิตศาสตร์แบบตรง -->
+          <div id="smart-answer-pad" class="hidden">
+            <div id="smart-answer-keys" class="grid grid-cols-6 gap-1.5 mb-2">
+              <button data-smart-val="1" class="smart-key">1</button><button data-smart-val="2" class="smart-key">2</button><button data-smart-val="3" class="smart-key">3</button>
+              <button data-smart-val="4" class="smart-key">4</button><button data-smart-val="5" class="smart-key">5</button><button data-smart-val="6" class="smart-key">6</button>
+              <button data-smart-val="7" class="smart-key">7</button><button data-smart-val="8" class="smart-key">8</button><button data-smart-val="9" class="smart-key">9</button>
+              <button data-smart-val="0" class="smart-key">0</button><button data-smart-val="-" class="smart-key smart-symbol">−</button><button data-smart-val="del" class="smart-key smart-delete">⌫</button>
+              <button data-smart-val="." class="smart-key smart-extra">.</button><button data-smart-val="/" class="smart-key smart-extra">÷</button><button data-smart-val="," class="smart-key smart-extra">,</button>
+              <button data-smart-val="x" class="smart-key smart-extra">x</button><button data-smart-val="+" class="smart-key smart-extra">+</button><button data-smart-val="(" class="smart-key smart-extra">(</button>
+              <button data-smart-val=")" class="smart-key smart-extra">)</button><button data-smart-val="^" class="smart-key smart-extra">xʸ</button><button data-smart-val="^2" class="smart-key smart-extra">x²</button>
+              <button data-smart-val="^3" class="smart-key smart-extra">x³</button><button data-smart-val="√" class="smart-key smart-extra">√</button><button data-smart-val="∛" class="smart-key smart-extra">∛</button>
+              <button data-smart-val="*10^" class="smart-key smart-extra smart-wide">×10ⁿ</button>
+            </div>
+            <div class="flex gap-2">
+              <button id="btn-clear-smart" type="button" class="w-1/3 bg-white border-2 border-slate-200 text-slate-500 font-bold py-3 rounded-xl active:scale-95 transition-all">ล้าง</button>
+              <button id="btn-check-smart" type="button" class="w-2/3 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-xl shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">✓ ตรวจคำตอบ</button>
             </div>
           </div>
         </div>
@@ -955,7 +2523,7 @@
         <div class="bg-slate-100 rounded-2xl p-6 mb-8 border-2 border-slate-200 text-center shadow-inner">
           <p class="text-slate-500 text-sm mb-2 font-semibold uppercase tracking-wider">เฉลยคือ</p>
           <div class="text-3xl font-black text-slate-800 flex justify-center items-center flex-wrap gap-2">
-            <span id="revealed-question"></span>
+            <div id="revealed-question"></div>
             <span class="text-indigo-600 mx-2">➔</span>
             <span id="revealed-answer" class="text-indigo-600 text-4xl"></span>
           </div>
